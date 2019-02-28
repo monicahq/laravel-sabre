@@ -53,8 +53,7 @@ class DAVController extends Controller
     {
         $plugins = LaravelSabre::getPlugins() ?: [];
 
-        foreach ($plugins as $plugin)
-        {
+        foreach ($plugins as $plugin) {
             $server->addPlugin($plugin);
         }
     }
