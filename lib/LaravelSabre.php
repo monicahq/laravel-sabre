@@ -3,8 +3,6 @@
 namespace LaravelSabre;
 
 use Closure;
-use ArrayAccess;
-use Illuminate\Support\Facades\App;
 
 class LaravelSabre
 {
@@ -109,7 +107,7 @@ class LaravelSabre
      */
     public static function check($request)
     {
-        return (static::$auth ?: function() : bool {
+        return (static::$auth ?: function () : bool {
             return true;
         })($request);
     }

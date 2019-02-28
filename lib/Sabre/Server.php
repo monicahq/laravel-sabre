@@ -12,9 +12,9 @@ class Server extends SabreServer
      * @psalm-suppress InvalidPropertyAssignmentValue
      * @psalm-suppress TooManyArguments
      *
-    * @param \Sabre\DAV\Tree|\Sabre\DAV\INode|array|null $treeOrNode The tree object
-    */
-    function __construct($treeOrNode = null)
+     * @param \Sabre\DAV\Tree|\Sabre\DAV\INode|array|null $treeOrNode The tree object
+     */
+    public function __construct($treeOrNode = null)
     {
         parent::__construct($treeOrNode);
 

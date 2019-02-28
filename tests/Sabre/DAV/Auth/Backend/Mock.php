@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is imported for sabre\dav project (tests)
+ * This file is imported for sabre\dav project (tests).
  *
  *  Copyright (C) 2007-2016 fruux GmbH (https://fruux.com/).
  *  All rights reserved.
@@ -15,18 +15,17 @@ use Sabre\HTTP\RequestInterface;
 use Sabre\HTTP\ResponseInterface;
 use Sabre\DAV\Auth\Backend\BackendInterface;
 
-class Mock implements BackendInterface {
-
+class Mock implements BackendInterface
+{
     public $fail = false;
 
     public $invalidCheckResponse = false;
 
     public $principal = 'principals/admin';
 
-    function setPrincipal($principal) {
-
+    public function setPrincipal($principal)
+    {
         $this->principal = $principal;
-
     }
 
     /**
@@ -57,16 +56,16 @@ class Mock implements BackendInterface {
      * @param ResponseInterface $response
      * @return array
      */
-    function check(RequestInterface $request, ResponseInterface $response) {
-
+    public function check(RequestInterface $request, ResponseInterface $response)
+    {
         if ($this->invalidCheckResponse) {
             return 'incorrect!';
         }
         if ($this->fail) {
-            return [false, "fail!"];
+            return [false, 'fail!'];
         }
-        return [true, $this->principal];
 
+        return [true, $this->principal];
     }
 
     /**
@@ -88,8 +87,7 @@ class Mock implements BackendInterface {
      *
      * @return void
      */
-    function challenge(RequestInterface $request, ResponseInterface $response) {
-
+    public function challenge(RequestInterface $request, ResponseInterface $response)
+    {
     }
-
 }

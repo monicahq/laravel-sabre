@@ -13,13 +13,13 @@ class Response extends BaseResponse
     public $response;
 
     /**
-     * Creates the response object
+     * Creates the response object.
      *
      * @param string|int $status
      * @param array $headers
      * @param resource $body
      */
-    function __construct($status = null, array $headers = null, $body = null)
+    public function __construct($status = null, array $headers = null, $body = null)
     {
         $this->response = new HttpResponse;
 
@@ -34,7 +34,7 @@ class Response extends BaseResponse
      *
      * @return resource
      */
-    function getBodyAsStream()
+    public function getBodyAsStream()
     {
         throw new \Exception('Not implemented');
     }
@@ -47,7 +47,7 @@ class Response extends BaseResponse
      *
      * @return string
      */
-    function getBodyAsString()
+    public function getBodyAsString()
     {
         return $this->response->getContent();
     }
@@ -59,7 +59,7 @@ class Response extends BaseResponse
      *
      * @return resource|string
      */
-    function getBody()
+    public function getBody()
     {
         return $this->getBodyAsString();
     }
@@ -70,7 +70,7 @@ class Response extends BaseResponse
      * @param resource|string $body
      * @return void
      */
-    function setBody($body)
+    public function setBody($body)
     {
         $this->response->setContent($body);
     }
@@ -82,7 +82,7 @@ class Response extends BaseResponse
      *
      * @return array
      */
-    function getHeaders()
+    public function getHeaders()
     {
         return $this->response->headers->all();
     }
@@ -93,7 +93,7 @@ class Response extends BaseResponse
      * @param string $name
      * @return bool
      */
-    function hasHeader($name)
+    public function hasHeader($name)
     {
         return $this->response->headers->has($name);
     }
@@ -114,7 +114,7 @@ class Response extends BaseResponse
      * @param string $name
      * @return string|null
      */
-    function getHeader($name)
+    public function getHeader($name)
     {
         $header = $this->response->headers->get($name);
 
@@ -136,13 +136,13 @@ class Response extends BaseResponse
      * @param string $name
      * @return string[]
      */
-    function getHeaderAsArray($name)
+    public function getHeaderAsArray($name)
     {
         $header = $this->response->headers->get($name);
 
         if (is_null($header)) {
             return [];
-        } else if (is_string($header)) {
+        } elseif (is_string($header)) {
             return [$header];
         }
 
@@ -160,7 +160,7 @@ class Response extends BaseResponse
      * @param string|string[] $value
      * @return void
      */
-    function setHeader($name, $value)
+    public function setHeader($name, $value)
     {
         $this->response->headers->set($name, $value, true);
     }
@@ -176,10 +176,9 @@ class Response extends BaseResponse
      * @param array $headers
      * @return void
      */
-    function setHeaders(array $headers)
+    public function setHeaders(array $headers)
     {
-        foreach ($headers as $name => $value)
-        {
+        foreach ($headers as $name => $value) {
             $this->setHeader($name, $value);
         }
     }
@@ -195,7 +194,7 @@ class Response extends BaseResponse
      * @param string $value
      * @return void
      */
-    function addHeader($name, $value)
+    public function addHeader($name, $value)
     {
         $this->response->headers->set($name, $value, false);
     }
@@ -208,10 +207,9 @@ class Response extends BaseResponse
      * @param array $headers
      * @return void
      */
-    function addHeaders(array $headers)
+    public function addHeaders(array $headers)
     {
-        foreach ($headers as $name => $value)
-        {
+        foreach ($headers as $name => $value) {
             $this->addHeader($name, $value);
         }
     }
@@ -226,9 +224,10 @@ class Response extends BaseResponse
      * @param string $name
      * @return bool
      */
-    function removeHeader($name)
+    public function removeHeader($name)
     {
         $this->response->headers->remove($name);
+
         return true;
     }
 
@@ -240,7 +239,7 @@ class Response extends BaseResponse
      * @param string $version
      * @return void
      */
-    function setHttpVersion($version)
+    public function setHttpVersion($version)
     {
         $this->response->setProtocolVersion($version);
     }
@@ -250,7 +249,7 @@ class Response extends BaseResponse
      *
      * @return string
      */
-    function getHttpVersion()
+    public function getHttpVersion()
     {
         return $this->response->getProtocolVersion();
     }
@@ -260,7 +259,7 @@ class Response extends BaseResponse
      *
      * @return int
      */
-    function getStatus()
+    public function getStatus()
     {
         return $this->response->getStatusCode();
     }
@@ -272,7 +271,7 @@ class Response extends BaseResponse
      *
      * @return string
      */
-    function getStatusText()
+    public function getStatusText()
     {
         throw new \Exception('Not implemented');
     }
@@ -290,7 +289,7 @@ class Response extends BaseResponse
      * @throws \InvalidArgumentException
      * @return void
      */
-    function setStatus($status)
+    public function setStatus($status)
     {
         if (is_int($status)) {
             $this->response->setStatusCode($status);

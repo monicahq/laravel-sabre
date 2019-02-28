@@ -3,13 +3,10 @@
 namespace LaravelSabre\Tests\Unit;
 
 use LaravelSabre\LaravelSabre;
-use Sabre\DAVACL\Plugin as AclPlugin;
 use Sabre\DAVACL\PrincipalCollection;
 use LaravelSabre\Tests\FeatureTestCase;
-use Sabre\DAV\Auth\Plugin as AuthPlugin;
 use Sabre\CardDAV\Plugin as CardDAVPlugin;
 use Orchestra\Testbench\Http\Middleware\VerifyCsrfToken;
-use LaravelSabre\Tests\Sabre\DAV\Auth\Backend\Mock as AuthBackend;
 use LaravelSabre\Tests\Sabre\DAVACL\PrincipalBackend\Mock as PrincipalBackend;
 
 class ServerTest extends FeatureTestCase
@@ -42,8 +39,8 @@ class ServerTest extends FeatureTestCase
 
         $response = $this->call('PROPFIND', '/dav/principals/admin');
 
-        $response->assertSee("<?xml version=\"1.0\"?>
-<d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\" xmlns:card=\"urn:ietf:params:xml:ns:carddav\">
+        $response->assertSee('<?xml version="1.0"?>
+<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:card="urn:ietf:params:xml:ns:carddav">
  <d:response>
   <d:href>/dav/principals/admin</d:href>
   <d:propstat>
@@ -54,7 +51,7 @@ class ServerTest extends FeatureTestCase
   </d:propstat>
  </d:response>
 </d:multistatus>
-");
+');
         $response->assertStatus(207);
     }
 }
