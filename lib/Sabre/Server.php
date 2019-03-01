@@ -22,10 +22,6 @@ class Server extends SabreServer
         $sapi = new Sapi();
         $this->sapi = $sapi;
 
-        /** @var \Sabre\HTTP\Response */
-        $response = new Response();
-        $this->httpResponse = $response;
-
         if (! App::environment('production')) {
             $this->debugExceptions = true;
         }
@@ -54,14 +50,29 @@ class Server extends SabreServer
     }
 
     /**
+     * Get response for Laravel.
+     *
      * @return \Illuminate\Http\Response
      */
     public function getResponse()
     {
-        /** @var \LaravelSabre\Sabre\Response */
-        $httpResponse = $this->httpResponse;
+        // Transform to Laravel response
+        $body = $this->httpResponse->getBody();
+        $status = $this->httpResponse->getStatus();
+        $headers = $this->httpResponse->getHeaders();
 
-        return $httpResponse->response;
+        if (is_string($body)) {
+            return response($body, $status, $headers);
+        }
+
+        $contentLength = $this->httpResponse->getHeader('Content-Length');
+        return response()->stream(function () use ($body, $contentLength) {
+            if (is_int($contentLength) || ctype_digit($contentLength)) {
+                echo stream_get_contents($body, $contentLength);
+            } else {
+                echo stream_get_contents($body);
+            }
+        }, $status, $headers);
     }
 
     /**
