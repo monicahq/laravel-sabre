@@ -67,7 +67,7 @@ class Server extends SabreServer
 
         $contentLength = $this->httpResponse->getHeader('Content-Length');
         return response()->stream(function () use ($body, $contentLength) {
-            if (is_int($contentLength) || ctype_digit($contentLength)) {
+            if (is_int($contentLength) || (! is_null($contentLength) && ctype_digit($contentLength))) {
                 echo stream_get_contents($body, $contentLength);
             } else {
                 echo stream_get_contents($body);
