@@ -1,0 +1,53 @@
+{
+    "name": "monicahq/laravel-sabre",
+    "description": "Sabre.io implementation for Laravel",
+    "keywords": [
+        "laravel",
+        "php",
+        "sabre",
+        "dav"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/monicahq/laravel-sabre/issues",
+        "source": "https://github.com/monicahq/laravel-sabre"
+    },
+    "authors": [
+        {
+            "name": "Alexis Saettler",
+            "email": "alexis@saettler.org"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^5.6",
+        "sabre/dav": "3.2"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0",
+        "phpunit/phpunit": "^7.3",
+        "vimeo/psalm": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaravelSabre\\": "lib"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaravelSabre\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelSabre\\LaravelSabreServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
