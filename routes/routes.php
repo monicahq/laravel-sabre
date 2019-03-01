@@ -20,6 +20,6 @@ $verbs = [
     'REPORT',
 ];
 
-Illuminate\Routing\Router::$verbs = $verbs;
+Illuminate\Routing\Router::$verbs = array_merge(Illuminate\Routing\Router::$verbs, $verbs);
 
 Route::match($verbs, '{path?}', 'DAVController@init')->where('path', '(.)*');
