@@ -9,10 +9,12 @@ use Sabre\DAV\Server as SabreServer;
 class Server extends SabreServer
 {
     /**
-     * @psalm-suppress InvalidPropertyAssignmentValue
-     * @psalm-suppress TooManyArguments
+     * Creates a new instance of Sabre Server.
      *
      * @param \Sabre\DAV\Tree|\Sabre\DAV\INode|array|null $treeOrNode The tree object
+     *
+     * @psalm-suppress InvalidPropertyAssignmentValue
+     * @psalm-suppress TooManyArguments
      */
     public function __construct($treeOrNode = null)
     {
@@ -28,9 +30,12 @@ class Server extends SabreServer
     }
 
     /**
+     * Set request from Laravel.
+     *
      * @psalm-suppress UndefinedClass
      * @psalm-suppress TooManyArguments
      *
+     * @param Request  $request
      * @return void
      */
     public function setRequest(Request $request)
@@ -52,7 +57,7 @@ class Server extends SabreServer
     /**
      * Get response for Laravel.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getResponse()
     {
@@ -69,7 +74,7 @@ class Server extends SabreServer
 
         return response()->stream(function () use ($body, $contentLength) {
             if (is_int($contentLength) || (! is_null($contentLength) && ctype_digit($contentLength))) {
-                echo stream_get_contents($body, $contentLength);
+                echo stream_get_contents($body, intval($contentLength));
             } else {
                 echo stream_get_contents($body);
             }
@@ -79,6 +84,7 @@ class Server extends SabreServer
     /**
      * Get the full URL for the request.
      *
+     * @param Request  $request
      * @return string
      */
     private function fullUrl(Request $request)
