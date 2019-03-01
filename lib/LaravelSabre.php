@@ -3,6 +3,7 @@
 namespace LaravelSabre;
 
 use Closure;
+use LaravelSabre\Exception\InvalidStateException;
 
 class LaravelSabre
 {
@@ -34,8 +35,8 @@ class LaravelSabre
      */
     public static function getNodes()
     {
-        if (is_callable(static::$nodes)) {
-            return call_user_func_array(static::$nodes, []);
+        if (static::$nodes instanceof Closure) {
+            return (static::$nodes)();
         }
         return static::$nodes;
     }
@@ -66,8 +67,8 @@ class LaravelSabre
      */
     public static function getPlugins()
     {
-        if (is_callable(static::$plugins)) {
-            return call_user_func_array(static::$plugins, []);
+        if (static::$plugins instanceof Closure) {
+            return (static::$plugins)();
         }
         return static::$plugins;
     }
@@ -101,7 +102,11 @@ class LaravelSabre
             static::$plugins = [];
         }
 
-        static::$plugins[] = $plugin;
+        if (is_array(static::$plugins)) {
+            static::$plugins[] = $plugin;
+        } else {
+            throw new InvalidStateException('plugins is not an array, impossible to use plugin() function.');
+        }
 
         return new static;
     }
