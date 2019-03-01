@@ -68,7 +68,7 @@ class Server extends SabreServer
         $status = $this->httpResponse->getStatus();
         $headers = $this->httpResponse->getHeaders();
 
-        if (is_string($body)) {
+        if (is_null($body) || is_string($body)) {
             return response($body, $status, $headers);
         }
 
