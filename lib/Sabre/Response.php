@@ -4,6 +4,7 @@ namespace LaravelSabre\Sabre;
 
 use Sabre\HTTP\Response as BaseResponse;
 use Illuminate\Http\Response as HttpResponse;
+use LaravelSabre\Exception\NotImplementedException;
 
 class Response extends BaseResponse
 {
@@ -36,7 +37,7 @@ class Response extends BaseResponse
      */
     public function getBodyAsStream()
     {
-        throw new \Exception('Not implemented');
+        throw new NotImplementedException;
     }
 
     /**
@@ -273,7 +274,7 @@ class Response extends BaseResponse
      */
     public function getStatusText()
     {
-        throw new \Exception('Not implemented');
+        throw new NotImplementedException;
     }
 
     /**
