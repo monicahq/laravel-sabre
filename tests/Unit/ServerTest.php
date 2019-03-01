@@ -40,18 +40,17 @@ class ServerTest extends FeatureTestCase
         $response = $this->call('PROPFIND', '/dav/principals/admin');
 
         $response->assertSee('<?xml version="1.0"?>
-<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:card="urn:ietf:params:xml:ns:carddav">
- <d:response>
-  <d:href>/dav/principals/admin</d:href>
-  <d:propstat>
-   <d:prop>
-    <d:resourcetype/>
-   </d:prop>
-   <d:status>HTTP/1.1 200 OK</d:status>
-  </d:propstat>
- </d:response>
-</d:multistatus>
-');
+<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:card="urn:ietf:params:xml:ns:carddav">'.
+ '<d:response>'.
+  '<d:href>/dav/principals/admin</d:href>'.
+  '<d:propstat>'.
+   '<d:prop>'.
+    '<d:resourcetype/>'.
+   '</d:prop>'.
+   '<d:status>HTTP/1.1 200 OK</d:status>'.
+  '</d:propstat>'.
+ '</d:response>'.
+'</d:multistatus>');
         $response->assertStatus(207);
     }
 }
