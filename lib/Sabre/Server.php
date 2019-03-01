@@ -9,10 +9,12 @@ use Sabre\DAV\Server as SabreServer;
 class Server extends SabreServer
 {
     /**
-     * @psalm-suppress InvalidPropertyAssignmentValue
-     * @psalm-suppress TooManyArguments
+     * Creates a new instance of Sabre Server.
      *
      * @param \Sabre\DAV\Tree|\Sabre\DAV\INode|array|null $treeOrNode The tree object
+     *
+     * @psalm-suppress InvalidPropertyAssignmentValue
+     * @psalm-suppress TooManyArguments
      */
     public function __construct($treeOrNode = null)
     {
@@ -22,19 +24,18 @@ class Server extends SabreServer
         $sapi = new Sapi();
         $this->sapi = $sapi;
 
-        /** @var \Sabre\HTTP\Response */
-        $response = new Response();
-        $this->httpResponse = $response;
-
         if (! App::environment('production')) {
             $this->debugExceptions = true;
         }
     }
 
     /**
+     * Set request from Laravel.
+     *
      * @psalm-suppress UndefinedClass
      * @psalm-suppress TooManyArguments
      *
+     * @param Request  $request
      * @return void
      */
     public function setRequest(Request $request)
@@ -54,19 +55,38 @@ class Server extends SabreServer
     }
 
     /**
-     * @return \Illuminate\Http\Response
+     * Get response for Laravel.
+     *
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     *
+     * @psalm-suppress InvalidReturnStatement
      */
     public function getResponse()
     {
-        /** @var \LaravelSabre\Sabre\Response */
-        $httpResponse = $this->httpResponse;
+        // Transform to Laravel response
+        $body = $this->httpResponse->getBody();
+        $status = $this->httpResponse->getStatus();
+        $headers = $this->httpResponse->getHeaders();
 
-        return $httpResponse->response;
+        if (is_string($body)) {
+            return response($body, $status, $headers);
+        }
+
+        $contentLength = $this->httpResponse->getHeader('Content-Length');
+
+        return response()->stream(function () use ($body, $contentLength) {
+            if (is_int($contentLength) || (! is_null($contentLength) && ctype_digit($contentLength))) {
+                echo stream_get_contents($body, intval($contentLength));
+            } else {
+                echo stream_get_contents($body);
+            }
+        }, $status, $headers);
     }
 
     /**
      * Get the full URL for the request.
      *
+     * @param Request  $request
      * @return string
      */
     private function fullUrl(Request $request)

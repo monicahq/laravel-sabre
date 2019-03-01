@@ -12,13 +12,11 @@ class DAVController extends Controller
     /**
      * Display the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
     public function init(Request $request)
     {
-        if (! config('laravelsabre.enabled')) {
-            abort(404);
-        }
+        abort_if(! config('laravelsabre.enabled'), 404);
 
         $server = $this->getServer($request);
 
