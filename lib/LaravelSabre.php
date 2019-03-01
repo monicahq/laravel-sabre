@@ -3,22 +3,23 @@
 namespace LaravelSabre;
 
 use Closure;
+use LaravelSabre\Exception\InvalidStateException;
 
 class LaravelSabre
 {
     /**
      * The collection of node to use with the sabre server.
      *
-     * @var array|\Sabre\DAV\Tree|\Sabre\DAV\INode
+     * @var array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure
      */
-    private static $nodes = [];
+    private static $nodes;
 
     /**
      * The collection of plugins to register to the sabre server.
      *
-     * @var array
+     * @var array|\Closure
      */
-    private static $plugins = [];
+    private static $plugins;
 
     /**
      * The callback used to authenticate a request.
@@ -34,18 +35,28 @@ class LaravelSabre
      */
     public static function getNodes()
     {
+        if (static::$nodes instanceof Closure) {
+            return (static::$nodes)();
+        }
+
         return static::$nodes;
     }
 
     /**
      * Sets the list of nodes used to create the sabre collection.
      *
-     * @param array|\Sabre\DAV\Tree|\Sabre\DAV\INode  $nodes
+     * @param array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure  $nodes
      * @return static
      */
     public static function nodes($nodes)
     {
-        static::$nodes = $nodes;
+        if ($nodes instanceof Closure ||
+            $nodes instanceof \Sabre\DAV\Tree ||
+            $nodes instanceof \Sabre\DAV\INode) {
+            static::$nodes = $nodes;
+        } else {
+            static::$nodes = collect($nodes)->toArray();
+        }
 
         return new static;
     }
@@ -57,18 +68,26 @@ class LaravelSabre
      */
     public static function getPlugins()
     {
+        if (static::$plugins instanceof Closure) {
+            return (static::$plugins)();
+        }
+
         return static::$plugins;
     }
 
     /**
      * Sets the list of plugins to add to the sabre server.
      *
-     * @param array  $plugins
+     * @param mixed  $plugins
      * @return static
      */
     public static function plugins($plugins)
     {
-        static::$plugins = $plugins;
+        if ($plugins instanceof Closure) {
+            static::$plugins = $plugins;
+        } else {
+            static::$plugins = collect($plugins)->toArray();
+        }
 
         return new static;
     }
@@ -81,7 +100,15 @@ class LaravelSabre
      */
     public static function plugin($plugin)
     {
-        static::$plugins[] = $plugin;
+        if (is_null(static::$plugins)) {
+            static::$plugins = [];
+        }
+
+        if (is_array(static::$plugins)) {
+            static::$plugins[] = $plugin;
+        } else {
+            throw new InvalidStateException('plugins is not an array, impossible to use plugin() function.');
+        }
 
         return new static;
     }
