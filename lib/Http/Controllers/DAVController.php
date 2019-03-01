@@ -12,7 +12,7 @@ class DAVController extends Controller
     /**
      * Display the specified resource.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
     public function init(Request $request)
     {

@@ -57,7 +57,9 @@ class Server extends SabreServer
     /**
      * Get response for Laravel.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     *
+     * @psalm-suppress InvalidReturnStatement
      */
     public function getResponse()
     {
