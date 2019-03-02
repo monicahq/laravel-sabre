@@ -41,6 +41,7 @@ class AuthBackend implements BackendInterface
      */
     public function check(RequestInterface $request, ResponseInterface $response)
     {
+        /** @var \Illuminate\Contracts\Auth\Authenticatable|null */
         $user = Auth::user();
         if (is_null($user)) {
             return [false, 'User is not authenticated'];

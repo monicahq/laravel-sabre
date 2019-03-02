@@ -24,7 +24,7 @@ class LaravelSabre
     /**
      * The callback used to authenticate a request.
      *
-     * @var \Closure
+     * @var null|\Closure
      */
     private static $auth;
 
@@ -100,7 +100,7 @@ class LaravelSabre
      */
     public static function plugin($plugin)
     {
-        if (is_null(static::$plugins)) {
+        if (! isset(static::$plugins)) {
             static::$plugins = [];
         }
 

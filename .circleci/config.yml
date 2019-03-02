@@ -23,6 +23,10 @@ aliases:
     run:
       name: Run psalm
       command: vendor/bin/psalm --show-info=false
+  - &phpstan
+    run:
+      name: Run phpstan
+      command: vendor/bin/phpstan analyse src
   - &remove-xdebug
     run:
       name: Remove xdebug
@@ -87,6 +91,17 @@ jobs:
           at: *root
       - *psalm
 
+  phpstan:
+    <<: *defaults
+    docker:
+      - image: circleci/php:7.2
+
+    steps:
+      - checkout
+      - attach_workspace:
+          at: *root
+      - *phpstan
+
   reporting:
     <<: *defaults
     docker:
@@ -124,6 +139,9 @@ workflows:
           requires:
             - build
       - psalm:
+          requires:
+            - build
+      - phpstan:
           requires:
             - build
       - reporting:
