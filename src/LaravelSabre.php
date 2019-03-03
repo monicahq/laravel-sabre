@@ -138,4 +138,16 @@ class LaravelSabre
             return true;
         })($request);
     }
+
+    /**
+     * Clear all datas.
+     *
+     * @return void
+     */
+    public static function clear()
+    {
+        static::$nodes = null;
+        static::$plugins = null;
+        static::$auth = null;
+    }
 }
