@@ -1,7 +1,13 @@
-# Laravel-Sabre
-Sabre.io DAV server adapter for Laravel.
+# Sabre adapter for Laravel
 
-## Installation
+Laravel-Sabre is an adapter to use Sabre.io DAV Server on Laravel.
+
+[![Latest Version](https://img.shields.io/packagist/v/monicahq/laravel-sabre.svg?style=flat-square)](https://github.com/monicahq/laravel-sabre/releases)
+[![Downloads](https://img.shields.io/packagist/dt/monicahq/laravel-sabre.svg?style=flat-square)](https://packagist.org/packages/monicahq/laravel-sabre/releases)
+[![Circle CI](https://img.shields.io/circleci/project/github/monicahq/laravel-sabre.svg?style=flat-square)](https://circleci.com/gh/monicahq/laravel-sabre/tree/master)
+[![Coverage Status](https://img.shields.io/sonar/https/sonarcloud.io/monicahq_laravel-sabre/coverage.svg?style=flat-square)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
+
+# Installation
 
 You may use Composer to install this package into your Laravel project:
 
@@ -9,7 +15,14 @@ You may use Composer to install this package into your Laravel project:
 composer require monicahq/laravel-sabre
 ```
 
-### Configuration
+You don't need to add this package to your service providers.
+
+## Support
+
+This package supports Laravel 5.6 and newer, and has been tested with php 7.1 and newer versions.
+
+
+## Configuration
 
 You can publish the LaravelSabre configuration in a file named `config/laravelsabre.php`.
 Simply run this artisan command:
@@ -26,14 +39,14 @@ If desired, you may disable LaravelSabre entirely using the `enabled` configurat
 Change the `path` configuration to set the url path where the Sabre server will answer to.
 
 
-## Usage
+# Usage
 
 Use `LaravelSabre\LaravelSabre` class to add node collection and plugins to the Sabre server.
 
 In the example above, `DAVServiceProvider` is a service provider that has been added to the list of providers in `config/app.php` file.
 
 
-### Nodes
+## Nodes
 `LaravelSabre::nodes()` is used to add nodes collection to the Sabre server.
 
 It may be an array, or a callback function, like in this example here:
@@ -73,7 +86,7 @@ class DAVServiceProvider extends ServiceProvider
 ```
 
 
-### Plugins
+## Plugins
 
 You can use either:
 - `LaravelSbre::plugins()` to define a new array of plugins to add to the Sabre server. It may be a callback function.
@@ -116,7 +129,7 @@ class DAVServiceProvider extends ServiceProvider
 ```
 
 
-### Auth
+## Auth
 
 Use the `LaravelSabre::auth()` method with the `Authorize::class` middleware gate, to allow access to some people, based on some criteria.
 
@@ -128,7 +141,7 @@ LaravelSabre::auth(function () {
 ```
 
 
-## License
+# License
 
 Author: [Alexis Saettler](https://github.com/asbiin)
 
