@@ -5,7 +5,7 @@ namespace LaravelSabre\Tests\Unit;
 use LaravelSabre\LaravelSabre;
 use LaravelSabre\Tests\FeatureTestCase;
 
-class LaravelTest extends FeatureTestCase
+class LaravelSabreTest extends FeatureTestCase
 {
     /**
      * @return void
@@ -27,7 +27,7 @@ class LaravelTest extends FeatureTestCase
     public function test_add_node_collection()
     {
         LaravelSabre::nodes([
-            'test'
+            'test',
         ]);
 
         $this->assertCount(1, LaravelSabre::getNodes());
@@ -35,7 +35,7 @@ class LaravelTest extends FeatureTestCase
 
     public function test_add_node_callback()
     {
-        LaravelSabre::nodes(function() {
+        LaravelSabre::nodes(function () {
             return ['test'];
         });
 
@@ -59,7 +59,7 @@ class LaravelTest extends FeatureTestCase
     public function test_add_plugins_collection()
     {
         LaravelSabre::plugins([
-            'test'
+            'test',
         ]);
 
         $this->assertCount(1, LaravelSabre::getPlugins());
@@ -74,12 +74,10 @@ class LaravelTest extends FeatureTestCase
 
     public function test_add_plugins_callback()
     {
-        LaravelSabre::plugins(function() {
+        LaravelSabre::plugins(function () {
             return ['test'];
         });
 
         $this->assertCount(1, LaravelSabre::getPlugins());
     }
-
-
 }
