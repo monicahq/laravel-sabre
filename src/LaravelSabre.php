@@ -10,14 +10,14 @@ class LaravelSabre
     /**
      * The collection of node to use with the sabre server.
      *
-     * @var array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure
+     * @var null|array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure
      */
     private static $nodes;
 
     /**
      * The collection of plugins to register to the sabre server.
      *
-     * @var array|\Closure
+     * @var null|array|\Closure
      */
     private static $plugins;
 
@@ -100,7 +100,7 @@ class LaravelSabre
      */
     public static function plugin($plugin)
     {
-        if (! isset(static::$plugins)) {
+        if (is_null(static::$plugins)) {
             static::$plugins = [];
         }
 
