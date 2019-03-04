@@ -97,6 +97,7 @@ class LaravelSabre
      *
      * @param mixed  $plugin
      * @return static
+     * @throws InvalidStateException
      */
     public static function plugin($plugin)
     {

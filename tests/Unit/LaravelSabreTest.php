@@ -4,6 +4,7 @@ namespace LaravelSabre\Tests\Unit;
 
 use LaravelSabre\LaravelSabre;
 use LaravelSabre\Tests\FeatureTestCase;
+use LaravelSabre\Exception\InvalidStateException;
 
 class LaravelSabreTest extends FeatureTestCase
 {
@@ -105,6 +106,17 @@ class LaravelSabreTest extends FeatureTestCase
         $this->assertIsArray(LaravelSabre::getPlugins());
         $this->assertCount(1, LaravelSabre::getPlugins());
         $this->assertEquals(['test'], LaravelSabre::getPlugins());
+    }
+
+    public function test_add_plugin_exception()
+    {
+        LaravelSabre::plugins(function () {
+            return ['test'];
+        });
+
+        $this->expectException(InvalidStateException::class);
+
+        LaravelSabre::plugin('test');
     }
 
     public function test_clear()
