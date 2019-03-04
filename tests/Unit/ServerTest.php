@@ -3,7 +3,6 @@
 namespace LaravelSabre\Tests\Unit;
 
 use Illuminate\Http\Response;
-use LaravelSabre\LaravelSabre;
 use LaravelSabre\Sabre\Server;
 use LaravelSabre\Tests\FeatureTestCase;
 use Illuminate\Foundation\Testing\TestResponse;
