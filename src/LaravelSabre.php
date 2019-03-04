@@ -97,6 +97,7 @@ class LaravelSabre
      *
      * @param mixed  $plugin
      * @return static
+     * @throws InvalidStateException
      */
     public static function plugin($plugin)
     {
@@ -137,5 +138,17 @@ class LaravelSabre
         return (static::$auth ?: function () : bool {
             return true;
         })($request);
+    }
+
+    /**
+     * Clear all datas.
+     *
+     * @return void
+     */
+    public static function clear()
+    {
+        static::$nodes = [];
+        static::$plugins = [];
+        static::$auth = null;
     }
 }
