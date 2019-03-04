@@ -2,55 +2,63 @@
 
 namespace LaravelSabre\Tests\Unit;
 
+use Illuminate\Http\Response;
 use LaravelSabre\LaravelSabre;
-use Sabre\DAVACL\PrincipalCollection;
+use LaravelSabre\Sabre\Server;
 use LaravelSabre\Tests\FeatureTestCase;
-use Sabre\CardDAV\Plugin as CardDAVPlugin;
-use Orchestra\Testbench\Http\Middleware\VerifyCsrfToken;
-use LaravelSabre\Tests\Sabre\DAVACL\PrincipalBackend\Mock as PrincipalBackend;
+use Illuminate\Foundation\Testing\TestResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ServerTest extends FeatureTestCase
 {
-    /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
-    protected function setUp() : void
+    public function test_response_get_resource()
     {
-        parent::setUp();
+        $server = new Server(null);
 
-        $this->withoutMiddleware([VerifyCsrfToken::class]);
+        $file = fopen(__DIR__.'/../stubs/file.txt', 'r');
+        $server->httpResponse->setBody($file);
+        $server->httpResponse->setStatus(200);
+
+        $response = $server->getResponse();
+        $this->assertInstanceOf(StreamedResponse::class, $response);
+
+        $response = new TestResponse($response);
+
+        $response->assertOk();
+        $this->assertEquals("It's magical\n", $response->streamedContent());
     }
 
-    public function test_base_server()
+    public function test_response_get_resource_contentlength()
     {
-        $response = $this->get('/dav');
+        $server = new Server(null);
 
-        $response->assertHeader('X-Sabre-Version');
-        $response->assertStatus(501);
-        $response->assertSee('There was no plugin in the system that was willing to handle this GET method.');
+        $file = fopen(__DIR__.'/../stubs/file.txt', 'r');
+        $server->httpResponse->setBody($file);
+        $server->httpResponse->setStatus(200);
+        $server->httpResponse->setHeader('Content-Length', 4);
+
+        $response = $server->getResponse();
+        $this->assertInstanceOf(StreamedResponse::class, $response);
+
+        $response = new TestResponse($response);
+
+        $response->assertOk();
+        $this->assertEquals("It's", $response->streamedContent());
     }
 
-    public function test_base_server_collection()
+    public function test_response_get_string()
     {
-        LaravelSabre::nodes([new PrincipalCollection(new PrincipalBackend())]);
-        LaravelSabre::plugin(new CardDAVPlugin);
+        $server = new Server(null);
 
-        $response = $this->call('PROPFIND', '/dav/principals/admin');
+        $server->httpResponse->setBody('Alright');
+        $server->httpResponse->setStatus(200);
 
-        $response->assertSee('<?xml version="1.0"?>
-<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:card="urn:ietf:params:xml:ns:carddav">'.
- '<d:response>'.
-  '<d:href>/dav/principals/admin</d:href>'.
-  '<d:propstat>'.
-   '<d:prop>'.
-    '<d:resourcetype/>'.
-   '</d:prop>'.
-   '<d:status>HTTP/1.1 200 OK</d:status>'.
-  '</d:propstat>'.
- '</d:response>'.
-'</d:multistatus>');
-        $response->assertStatus(207);
+        $response = $server->getResponse();
+        $this->assertInstanceOf(Response::class, $response);
+
+        $response = new TestResponse($response);
+
+        $response->assertOk();
+        $this->assertEquals('Alright', $response->getContent());
     }
 }

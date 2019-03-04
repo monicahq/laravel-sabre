@@ -10,14 +10,14 @@ class LaravelSabre
     /**
      * The collection of node to use with the sabre server.
      *
-     * @var null|array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure
+     * @var array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure
      */
     private static $nodes;
 
     /**
      * The collection of plugins to register to the sabre server.
      *
-     * @var null|array|\Closure
+     * @var array|\Closure
      */
     private static $plugins;
 
@@ -100,7 +100,7 @@ class LaravelSabre
      */
     public static function plugin($plugin)
     {
-        if (is_null(static::$plugins)) {
+        if (! isset(static::$plugins)) {
             static::$plugins = [];
         }
 
@@ -146,8 +146,8 @@ class LaravelSabre
      */
     public static function clear()
     {
-        static::$nodes = null;
-        static::$plugins = null;
+        static::$nodes = [];
+        static::$plugins = [];
         static::$auth = null;
     }
 }
