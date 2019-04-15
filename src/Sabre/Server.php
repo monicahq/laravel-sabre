@@ -2,6 +2,7 @@
 
 namespace LaravelSabre\Sabre;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Sabre\DAV\Server as SabreServer;
@@ -93,7 +94,7 @@ class Server extends SabreServer
     private function fullUrl(Request $request)
     {
         $query = $request->getQueryString();
-        $url = str_finish($request->getPathInfo(), '/');
+        $url = Str::finish($request->getPathInfo(), '/');
 
         return $query ? $url.'?'.$query : $url;
     }
@@ -103,6 +104,6 @@ class Server extends SabreServer
      */
     public function getBasePathUri()
     {
-        return str_start(str_finish(config('laravelsabre.path'), '/'), '/');
+        return Str::start(Str::finish(config('laravelsabre.path'), '/'), '/');
     }
 }
