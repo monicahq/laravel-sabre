@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 $verbs = [
@@ -20,6 +21,8 @@ $verbs = [
     'REPORT',
 ];
 
-Illuminate\Routing\Router::$verbs = array_merge(Illuminate\Routing\Router::$verbs, $verbs);
+Router::$verbs = array_merge(Router::$verbs, $verbs);
 
-Route::match($verbs, '{path?}', 'DAVController@init')->where('path', '(.)*');
+Route::any('{path?}', 'DAVController@init')
+    ->where('path', '(.)*')
+    ->name('sabre.dav');
