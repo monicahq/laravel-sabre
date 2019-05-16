@@ -24,5 +24,5 @@ $verbs = [
 Router::$verbs = array_merge(Router::$verbs, $verbs);
 
 Route::any('{path?}', 'DAVController@init')
-    ->where('path', '(.)*')
-    ->name('sabre.dav');
+    ->name('sabre.dav')
+    ->where('path', '(.)*');
