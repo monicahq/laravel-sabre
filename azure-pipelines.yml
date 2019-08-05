@@ -1,0 +1,60 @@
+# PHP
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+trigger:
+- master
+
+variables:
+  phpVersion: 7.2
+  COMPOSER_HOME: $(Agent.BuildDirectory)/.composer
+
+stages:
+- stage: build
+  displayName: 'Build'
+  jobs:
+  - job: tests
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: .azure/prepare-environment-step.yml
+    - template: .azure/composer-install-step.yml
+    - template: .azure/unit-tests-step.yml
+
+  - job: psalm
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: .azure/prepare-environment-step.yml
+    - template: .azure/composer-install-step.yml
+    - script: vendor/bin/psalm --show-info=false
+      displayName: 'Run psalm'
+
+  - job: phpstan
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: .azure/prepare-environment-step.yml
+    - template: .azure/composer-install-step.yml
+    - script: vendor/bin/phpstan analyse src
+      displayName: 'Run phpstan'
+
+  - job: reporting
+    dependsOn:
+    - tests
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: .azure/prepare-environment-step.yml
+    - template: .azure/composer-install-step.yml
+    - task: DownloadPipelineArtifact@1
+      inputs:
+        artifactName: 'results'
+        downloadPath: $(System.DefaultWorkingDirectory)/results
+    - script: scripts/tests/runsonar.sh
+      env:
+        SONAR_RESULT: '$(System.DefaultWorkingDirectory)/results/results.xml'
+        SONAR_COVERAGE: ./results/coverage.xml
+        SONAR_TOKEN: $(SONAR_TOKEN)
+        GITHUB_TOKEN: $(GITHUB_TOKEN)
