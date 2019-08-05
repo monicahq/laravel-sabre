@@ -23,7 +23,7 @@ class DAVController extends Controller
         $this->addPlugins($server);
 
         // Execute sabre requests
-        $server->exec();
+        $server->start();
 
         return $server->getResponse();
     }

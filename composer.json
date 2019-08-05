@@ -21,12 +21,12 @@
     ],
     "require": {
         "laravel/framework": "^5.6",
-        "sabre/dav": "^3.2"
+        "sabre/dav": "^4.0"
     },
     "require-dev": {
         "nunomaduro/larastan": "^0.3.15",
         "orchestra/testbench": "~3.0",
-        "phpunit/phpunit": "^7.3",
+        "phpunit/phpunit": "^8.0",
         "vimeo/psalm": "^3.0"
     },
     "autoload": {

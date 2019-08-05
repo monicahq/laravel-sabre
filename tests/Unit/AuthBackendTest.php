@@ -13,7 +13,7 @@ class AuthBackendTest extends FeatureTestCase
     {
         $backend = new AuthBackend;
 
-        $check = $backend->check(new Request, new Response);
+        $check = $backend->check(new Request('', ''), new Response);
 
         $this->assertIsArray($check);
         $this->assertEquals([false, 'User is not authenticated'], $check);
@@ -24,7 +24,7 @@ class AuthBackendTest extends FeatureTestCase
         $this->signin();
         $backend = new AuthBackend;
 
-        $check = $backend->check(new Request, new Response);
+        $check = $backend->check(new Request('', ''), new Response);
 
         $this->assertIsArray($check);
         $this->assertEquals([true, 'principals/john@doe.com'], $check);
