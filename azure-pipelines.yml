@@ -14,35 +14,47 @@ stages:
 - stage: build
   displayName: 'Build'
   jobs:
-  - job: build_and_tests
+  - job: tests
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - script: |
-        sudo update-alternatives --set php /usr/bin/php$(phpVersion)
-        sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
-        sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
-        sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
-        sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
-        php -version
-      displayName: 'Use PHP version $(phpVersion)'
+    - template: .azure/prepare-environment-step.yml
+    - template: .azure/composer-install-step.yml
+    - template: .azure/unit-tests-step.yml
 
-    - script: composer install --no-interaction --no-suggest --ignore-platform-reqs
-      displayName: 'composer install'
+  - job: psalm
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: .azure/prepare-environment-step.yml
+    - template: .azure/composer-install-step.yml
+    - script: vendor/bin/psalm --show-info=false
+      displayName: 'Run psalm'
 
-    - script: vendor/bin/phpunit -c phpunit.xml --log-junit ./results/results.xml --coverage-clover ./results/coverage.xml
-      displayName: 'Run unit tests'
+  - job: phpstan
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: .azure/prepare-environment-step.yml
+    - template: .azure/composer-install-step.yml
+    - script: vendor/bin/phpstan analyse src
+      displayName: 'Run phpstan'
 
-    - task: PublishTestResults@2
-      displayName: 'Publish Test Results'
-      inputs:
-        testResultsFormat: JUnit
-        testResultsFiles: 'results.xml'
-        searchFolder: '$(System.DefaultWorkingDirectory)/results'
-        mergeTestResults: true
-      condition: succeededOrFailed()
-
-    - task: PublishPipelineArtifact@0
+  - job: reporting
+    dependsOn:
+    - tests
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: .azure/prepare-environment-step.yml
+    - template: .azure/composer-install-step.yml
+    - task: DownloadPipelineArtifact@1
       inputs:
         artifactName: 'results'
-        targetPath: 'results'
+        downloadPath: $(System.DefaultWorkingDirectory)/results
+    - script: scripts/tests/runsonar.sh
+      env:
+        SONAR_RESULT: '$(System.DefaultWorkingDirectory)/results/results.xml'
+        SONAR_COVERAGE: ./results/coverage.xml
+        SONAR_TOKEN: $(SONAR_TOKEN)
+        GITHUB_TOKEN: $(GITHUB_TOKEN)
