@@ -19,6 +19,11 @@ class Server extends SabreServer
      */
     public function __construct($treeOrNode = null)
     {
+        if (App::environment('testing')) {
+            $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI'] ?? '/';
+            $_SERVER['REQUEST_METHOD'] = $_SERVER['REQUEST_METHOD'] ?? 'CLI';
+        }
+
         parent::__construct($treeOrNode);
 
         /** @var \Sabre\HTTP\Sapi */
