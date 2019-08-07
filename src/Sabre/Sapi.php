@@ -2,7 +2,7 @@
 
 namespace LaravelSabre\Sabre;
 
-use \Sabre\HTTP\Request;
+use Sabre\HTTP\Request;
 use Sabre\HTTP\Sapi as BaseSapi;
 use Sabre\HTTP\ResponseInterface;
 
@@ -20,6 +20,7 @@ class Sapi extends BaseSapi
         $r = self::createFromServerArray($_SERVER);
         $r->setBody(fopen('php://input', 'r'));
         $r->setPostData($_POST);
+
         return $r;
     }
 }
