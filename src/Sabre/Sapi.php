@@ -2,7 +2,6 @@
 
 namespace LaravelSabre\Sabre;
 
-use Sabre\HTTP\Request;
 use Sabre\HTTP\Sapi as BaseSapi;
 use Sabre\HTTP\ResponseInterface;
 
