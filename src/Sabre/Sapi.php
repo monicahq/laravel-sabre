@@ -14,13 +14,4 @@ class Sapi extends BaseSapi
     public static function sendResponse(ResponseInterface $response)
     {
     }
-
-    public static function getRequest() : Request
-    {
-        $r = self::createFromServerArray($_SERVER);
-        $r->setBody(fopen('php://input', 'r'));
-        $r->setPostData($_POST);
-
-        return $r;
-    }
 }
