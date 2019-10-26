@@ -49,5 +49,12 @@
         <RawObjectIteration errorLevel="info" />
 
         <InvalidStringClass errorLevel="info" />
+
+        <TooManyArguments>
+            <errorLevel type="suppress">
+                <file name="src/LaravelSabre.php" />
+            </errorLevel>
+        </TooManyArguments>
+
     </issueHandlers>
 </psalm>
