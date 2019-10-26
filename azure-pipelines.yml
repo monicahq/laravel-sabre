@@ -7,7 +7,7 @@ trigger:
 - master
 
 variables:
-  phpVersion: 7.2
+  phpVersion: 7.3
   COMPOSER_HOME: $(Agent.BuildDirectory)/.composer
 
 stages:
