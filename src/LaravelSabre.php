@@ -135,7 +135,7 @@ class LaravelSabre
      */
     public static function check($request)
     {
-        return (static::$auth ?: function () : bool {
+        return (static::$auth ?: function ($request) : bool {
             return true;
         })($request);
     }
