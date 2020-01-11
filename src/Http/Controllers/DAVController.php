@@ -3,9 +3,9 @@
 namespace LaravelSabre\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use LaravelSabre\LaravelSabre;
 use LaravelSabre\Sabre\Server;
-use Illuminate\Routing\Controller;
 
 class DAVController extends Controller
 {

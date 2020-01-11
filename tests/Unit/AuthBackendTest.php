@@ -2,10 +2,10 @@
 
 namespace LaravelSabre\Tests\Unit;
 
-use Sabre\HTTP\Request;
-use Sabre\HTTP\Response;
 use LaravelSabre\Http\Auth\AuthBackend;
 use LaravelSabre\Tests\FeatureTestCase;
+use Sabre\HTTP\Request;
+use Sabre\HTTP\Response;
 
 class AuthBackendTest extends FeatureTestCase
 {

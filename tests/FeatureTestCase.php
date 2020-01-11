@@ -2,9 +2,9 @@
 
 namespace LaravelSabre\Tests;
 
-use Orchestra\Testbench\TestCase;
-use LaravelSabre\LaravelSabreServiceProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
+use LaravelSabre\LaravelSabreServiceProvider;
+use Orchestra\Testbench\TestCase;
 
 class FeatureTestCase extends TestCase
 {

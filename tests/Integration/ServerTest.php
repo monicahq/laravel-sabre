@@ -3,11 +3,11 @@
 namespace LaravelSabre\Tests\Integration;
 
 use LaravelSabre\LaravelSabre;
-use Sabre\DAVACL\PrincipalCollection;
 use LaravelSabre\Tests\FeatureTestCase;
-use Sabre\CardDAV\Plugin as CardDAVPlugin;
-use Orchestra\Testbench\Http\Middleware\VerifyCsrfToken;
 use LaravelSabre\Tests\Sabre\DAVACL\PrincipalBackend\Mock as PrincipalBackend;
+use Orchestra\Testbench\Http\Middleware\VerifyCsrfToken;
+use Sabre\CardDAV\Plugin as CardDAVPlugin;
+use Sabre\DAVACL\PrincipalCollection;
 
 class ServerTest extends FeatureTestCase
 {
@@ -16,7 +16,7 @@ class ServerTest extends FeatureTestCase
      *
      * @return void
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
