@@ -2,16 +2,16 @@
 
 namespace LaravelSabre\Tests\Unit;
 
+use LaravelSabre\Exception\InvalidStateException;
 use LaravelSabre\LaravelSabre;
 use LaravelSabre\Tests\FeatureTestCase;
-use LaravelSabre\Exception\InvalidStateException;
 
 class LaravelSabreTest extends FeatureTestCase
 {
     /**
      * @return void
      */
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         LaravelSabre::clear();
 
