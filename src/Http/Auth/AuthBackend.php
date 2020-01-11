@@ -2,10 +2,10 @@
 
 namespace LaravelSabre\Http\Auth;
 
-use Sabre\HTTP\RequestInterface;
-use Sabre\HTTP\ResponseInterface;
 use Illuminate\Support\Facades\Auth;
 use Sabre\DAV\Auth\Backend\BackendInterface;
+use Sabre\HTTP\RequestInterface;
+use Sabre\HTTP\ResponseInterface;
 
 class AuthBackend implements BackendInterface
 {

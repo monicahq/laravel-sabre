@@ -2,10 +2,10 @@
 
 namespace LaravelSabre\Tests\Unit;
 
+use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Http\Response;
 use LaravelSabre\Sabre\Server;
 use LaravelSabre\Tests\FeatureTestCase;
-use Illuminate\Foundation\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ServerTest extends FeatureTestCase
