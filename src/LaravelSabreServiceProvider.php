@@ -29,7 +29,7 @@ class LaravelSabreServiceProvider extends ServiceProvider
      */
     private function registerRoutes()
     {
-        Route::group($this->routeConfiguration(), function () : void {
+        Route::group($this->routeConfiguration(), function (): void {
             $this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
         });
     }

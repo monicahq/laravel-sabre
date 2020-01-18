@@ -11,9 +11,9 @@
 
 namespace LaravelSabre\Tests\Sabre\DAV\Auth\Backend;
 
+use Sabre\DAV\Auth\Backend\BackendInterface;
 use Sabre\HTTP\RequestInterface;
 use Sabre\HTTP\ResponseInterface;
-use Sabre\DAV\Auth\Backend\BackendInterface;
 
 class Mock implements BackendInterface
 {
