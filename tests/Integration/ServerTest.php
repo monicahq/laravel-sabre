@@ -50,7 +50,7 @@ class ServerTest extends FeatureTestCase
    '<d:status>HTTP/1.1 200 OK</d:status>'.
   '</d:propstat>'.
  '</d:response>'.
-'</d:multistatus>');
+'</d:multistatus>', false);
         $response->assertStatus(207);
     }
 }

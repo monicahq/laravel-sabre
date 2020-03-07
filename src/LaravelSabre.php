@@ -5,7 +5,7 @@ namespace LaravelSabre;
 use Closure;
 use LaravelSabre\Exception\InvalidStateException;
 
-class LaravelSabre
+final class LaravelSabre
 {
     /**
      * The collection of node to use with the sabre server.
