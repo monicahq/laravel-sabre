@@ -2,8 +2,8 @@
 
 namespace LaravelSabre\Tests\Unit;
 
-use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Http\Response;
+use Illuminate\Testing\TestResponse;
 use LaravelSabre\Sabre\Server;
 use LaravelSabre\Tests\FeatureTestCase;
 use Symfony\Component\HttpFoundation\StreamedResponse;
