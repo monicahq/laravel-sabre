@@ -4417,16 +4417,16 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v5.1.0",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "e36bdb5fc599495f46a8b2fd3a5e6ffed044e095"
+                "reference": "e2e493e8fdb043cdb4ab97560b4ce53d21313c40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/e36bdb5fc599495f46a8b2fd3a5e6ffed044e095",
-                "reference": "e36bdb5fc599495f46a8b2fd3a5e6ffed044e095",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/e2e493e8fdb043cdb4ab97560b4ce53d21313c40",
+                "reference": "e2e493e8fdb043cdb4ab97560b4ce53d21313c40",
                 "shasum": ""
             },
             "require": {
@@ -4463,20 +4463,20 @@
                 "orchestral",
                 "testing"
             ],
-            "time": "2020-03-10T17:14:11+00:00"
+            "time": "2020-04-28T01:11:20+00:00"
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v5.1.0",
+            "version": "v5.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "14961b8a10e513ebcab7f7548ffbeec663bac5c4"
+                "reference": "22526c9e2ef10551c8032ca27ef3243319d63dd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/14961b8a10e513ebcab7f7548ffbeec663bac5c4",
-                "reference": "14961b8a10e513ebcab7f7548ffbeec663bac5c4",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/22526c9e2ef10551c8032ca27ef3243319d63dd7",
+                "reference": "22526c9e2ef10551c8032ca27ef3243319d63dd7",
                 "shasum": ""
             },
             "require": {
@@ -4529,7 +4529,7 @@
                 "orchestral",
                 "testing"
             ],
-            "time": "2020-03-10T16:58:29+00:00"
+            "time": "2020-04-11T10:47:11+00:00"
         },
         {
             "name": "phar-io/manifest",
