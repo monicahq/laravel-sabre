@@ -26,7 +26,7 @@
     },
     "require-dev": {
         "nunomaduro/larastan": "^0.5",
-        "ocramius/package-versions": "1.5.1",
+        "ocramius/package-versions": "1.8.0",
         "orchestra/testbench": "^5.0",
         "phpunit/phpunit": "^9.0",
         "thecodingmachine/phpstan-safe-rule": "^1.0",
