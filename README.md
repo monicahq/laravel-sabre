@@ -4,7 +4,8 @@ Laravel-Sabre is an adapter to use Sabre.io DAV Server on Laravel.
 
 [![Latest Version](https://img.shields.io/packagist/v/monicahq/laravel-sabre.svg?style=flat-square)](https://github.com/monicahq/laravel-sabre/releases)
 [![Downloads](https://img.shields.io/packagist/dt/monicahq/laravel-sabre.svg?style=flat-square)](https://packagist.org/packages/monicahq/laravel-sabre)
-[![Circle CI](https://img.shields.io/circleci/project/github/monicahq/laravel-sabre.svg?style=flat-square)](https://circleci.com/gh/monicahq/laravel-sabre/tree/master)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/monicahq/laravel-sabre/Laravel%20sabre%20workflow?style=flat-square)](https://github.com/monicahq/laravel-sabre/actions?query=branch%3Amaster)
+[![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/monicahq_laravel-sabre?server=https%3A%2F%2Fsonarcloud.io&style=flat-square)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
 [![Coverage Status](https://img.shields.io/sonar/https/sonarcloud.io/monicahq_laravel-sabre/coverage.svg?style=flat-square)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
 
 # Installation
