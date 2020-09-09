@@ -70,4 +70,4 @@ jobs:
       run: composer install --no-progress --no-interaction --no-suggest --ignore-platform-reqs --prefer-dist --optimize-autoloader
 
     - name : Run phpstan
-      run: vendor/bin/phpstan analyse src
+      run: vendor/bin/phpstan analyse

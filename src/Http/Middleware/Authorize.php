@@ -15,6 +15,10 @@ class Authorize
      */
     public function handle($request, $next)
     {
-        return LaravelSabre::check($request) ? $next($request) : abort(403);
+        if (! LaravelSabre::check($request)) {
+            abort(403);
+        }
+
+        return $next($request);
     }
 }
