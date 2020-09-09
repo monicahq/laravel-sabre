@@ -12,6 +12,14 @@
 
 # RELEASED VERSIONS:
 
+## 1.4.0 - 2020-09-09
+ ### Enhancements:
+  * support Laravel 8
+
+ ### Fixes:
+  * don't return result of abort()
+
+
 ## 1.3.1 - 2020-03-07
  ### Enhancements:
   * Add thecodingmachine/safe
