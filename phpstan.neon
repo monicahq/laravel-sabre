@@ -3,6 +3,9 @@ includes:
     - ./vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
 
 parameters:
+    paths:
+        - src
+    inferPrivatePropertyTypeFromConstructor: true
     level: 5
     ignoreErrors:
         - '#Access to an undefined property Illuminate\\Foundation\\Auth\\User::\$email\.#'
