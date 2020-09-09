@@ -18,6 +18,7 @@ class Authorize
         if (! LaravelSabre::check($request)) {
             abort(403);
         }
+
         return $next($request);
     }
 }
