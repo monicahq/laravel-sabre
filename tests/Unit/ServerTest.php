@@ -20,10 +20,10 @@ class ServerTest extends FeatureTestCase
         $response = $server->getResponse();
         $this->assertInstanceOf(StreamedResponse::class, $response);
 
-        try {
-            $response = new \Illuminate\Testing\TestResponse($response);
-        } catch (\Exception $e) {
+        if (class_exists('\Illuminate\Foundation\Testing\TestResponse')) {
             $response = new \Illuminate\Foundation\Testing\TestResponse($response);
+        } else {
+            $response = new \Illuminate\Testing\TestResponse($response);
         }
 
         $response->assertOk();
@@ -42,10 +42,10 @@ class ServerTest extends FeatureTestCase
         $response = $server->getResponse();
         $this->assertInstanceOf(StreamedResponse::class, $response);
 
-        try {
-            $response = new \Illuminate\Testing\TestResponse($response);
-        } catch (\Exception $e) {
+        if (class_exists('\Illuminate\Foundation\Testing\TestResponse')) {
             $response = new \Illuminate\Foundation\Testing\TestResponse($response);
+        } else {
+            $response = new \Illuminate\Testing\TestResponse($response);
         }
 
         $response->assertOk();
@@ -62,10 +62,10 @@ class ServerTest extends FeatureTestCase
         $response = $server->getResponse();
         $this->assertInstanceOf(Response::class, $response);
 
-        try {
-            $response = new \Illuminate\Testing\TestResponse($response);
-        } catch (\Exception $e) {
+        if (class_exists('\Illuminate\Foundation\Testing\TestResponse')) {
             $response = new \Illuminate\Foundation\Testing\TestResponse($response);
+        } else {
+            $response = new \Illuminate\Testing\TestResponse($response);
         }
 
         $response->assertOk();
