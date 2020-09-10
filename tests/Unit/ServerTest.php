@@ -3,7 +3,6 @@
 namespace LaravelSabre\Tests\Unit;
 
 use Illuminate\Http\Response;
-use Illuminate\Testing\TestResponse;
 use LaravelSabre\Sabre\Server;
 use LaravelSabre\Tests\FeatureTestCase;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -21,7 +20,11 @@ class ServerTest extends FeatureTestCase
         $response = $server->getResponse();
         $this->assertInstanceOf(StreamedResponse::class, $response);
 
-        $response = new TestResponse($response);
+        try {
+            $response = new \Illuminate\Testing\TestResponse($response);
+        } catch (\Exception $e) {
+            $response = new \Illuminate\Foundation\Testing\TestResponse($response);
+        }
 
         $response->assertOk();
         $this->assertEquals("It's magical\n", $response->streamedContent());
@@ -39,7 +42,11 @@ class ServerTest extends FeatureTestCase
         $response = $server->getResponse();
         $this->assertInstanceOf(StreamedResponse::class, $response);
 
-        $response = new TestResponse($response);
+        try {
+            $response = new \Illuminate\Testing\TestResponse($response);
+        } catch (\Exception $e) {
+            $response = new \Illuminate\Foundation\Testing\TestResponse($response);
+        }
 
         $response->assertOk();
         $this->assertEquals("It's", $response->streamedContent());
@@ -55,7 +62,11 @@ class ServerTest extends FeatureTestCase
         $response = $server->getResponse();
         $this->assertInstanceOf(Response::class, $response);
 
-        $response = new TestResponse($response);
+        try {
+            $response = new \Illuminate\Testing\TestResponse($response);
+        } catch (\Exception $e) {
+            $response = new \Illuminate\Foundation\Testing\TestResponse($response);
+        }
 
         $response->assertOk();
         $this->assertEquals('Alright', $response->getContent());
