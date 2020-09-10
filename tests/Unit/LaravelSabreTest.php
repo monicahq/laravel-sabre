@@ -22,7 +22,9 @@ class LaravelSabreTest extends FeatureTestCase
     {
         LaravelSabre::nodes(null);
 
-        $this->assertIsArray(LaravelSabre::getNodes());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(0, LaravelSabre::getNodes());
         $this->assertEquals([], LaravelSabre::getNodes());
     }
@@ -33,7 +35,9 @@ class LaravelSabreTest extends FeatureTestCase
             'test',
         ]);
 
-        $this->assertIsArray(LaravelSabre::getNodes());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(1, LaravelSabre::getNodes());
         $this->assertEquals(['test'], LaravelSabre::getNodes());
     }
@@ -44,7 +48,9 @@ class LaravelSabreTest extends FeatureTestCase
             return ['test'];
         });
 
-        $this->assertIsArray(LaravelSabre::getNodes());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(1, LaravelSabre::getNodes());
         $this->assertEquals(['test'], LaravelSabre::getNodes());
     }
@@ -53,7 +59,9 @@ class LaravelSabreTest extends FeatureTestCase
     {
         LaravelSabre::plugins(null);
 
-        $this->assertIsArray(LaravelSabre::getPlugins());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(0, LaravelSabre::getPlugins());
         $this->assertEquals([], LaravelSabre::getPlugins());
     }
@@ -62,7 +70,9 @@ class LaravelSabreTest extends FeatureTestCase
     {
         LaravelSabre::plugin(null);
 
-        $this->assertIsArray(LaravelSabre::getPlugins());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(1, LaravelSabre::getPlugins());
         $this->assertEquals([null], LaravelSabre::getPlugins());
     }
@@ -73,7 +83,9 @@ class LaravelSabreTest extends FeatureTestCase
             'test',
         ]);
 
-        $this->assertIsArray(LaravelSabre::getPlugins());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(1, LaravelSabre::getPlugins());
         $this->assertEquals(['test'], LaravelSabre::getPlugins());
     }
@@ -82,7 +94,9 @@ class LaravelSabreTest extends FeatureTestCase
     {
         LaravelSabre::plugin('test');
 
-        $this->assertIsArray(LaravelSabre::getPlugins());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(1, LaravelSabre::getPlugins());
         $this->assertEquals(['test'], LaravelSabre::getPlugins());
     }
@@ -92,7 +106,9 @@ class LaravelSabreTest extends FeatureTestCase
         LaravelSabre::plugin('test');
         LaravelSabre::plugin('yeah');
 
-        $this->assertIsArray(LaravelSabre::getPlugins());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(2, LaravelSabre::getPlugins());
         $this->assertEquals(['test', 'yeah'], LaravelSabre::getPlugins());
     }
@@ -103,7 +119,9 @@ class LaravelSabreTest extends FeatureTestCase
             return ['test'];
         });
 
-        $this->assertIsArray(LaravelSabre::getPlugins());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(1, LaravelSabre::getPlugins());
         $this->assertEquals(['test'], LaravelSabre::getPlugins());
     }
@@ -123,13 +141,17 @@ class LaravelSabreTest extends FeatureTestCase
     {
         LaravelSabre::plugins(['test']);
 
-        $this->assertIsArray(LaravelSabre::getPlugins());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(1, LaravelSabre::getPlugins());
         $this->assertEquals(['test'], LaravelSabre::getPlugins());
 
         LaravelSabre::clear();
 
-        $this->assertIsArray(LaravelSabre::getPlugins());
+        if (function_exists('PHPUnit\Framework\assertIsArray')) {
+            $this->assertIsArray(LaravelSabre::getNodes());
+        }
         $this->assertCount(0, LaravelSabre::getPlugins());
         $this->assertEquals([], LaravelSabre::getPlugins());
     }
