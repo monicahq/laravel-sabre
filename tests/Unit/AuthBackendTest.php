@@ -15,9 +15,7 @@ class AuthBackendTest extends FeatureTestCase
 
         $check = $backend->check(new Request('', ''), new Response);
 
-        if (function_exists('PHPUnit\Framework\assertIsArray')) {
-            $this->assertIsArray($check);
-        }
+        $this->assertIsArray($check);
         $this->assertEquals([false, 'User is not authenticated'], $check);
     }
 
@@ -28,9 +26,7 @@ class AuthBackendTest extends FeatureTestCase
 
         $check = $backend->check(new Request('', ''), new Response);
 
-        if (function_exists('PHPUnit\Framework\assertIsArray')) {
-            $this->assertIsArray($check);
-        }
+        $this->assertIsArray($check);
         $this->assertEquals([true, 'principals/john@doe.com'], $check);
     }
 }
