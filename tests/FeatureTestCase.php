@@ -43,7 +43,7 @@ class FeatureTestCase extends TestCase
         return $user;
     }
 
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         parent::setUp();
 
