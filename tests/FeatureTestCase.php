@@ -47,7 +47,7 @@ class FeatureTestCase extends TestCase
     {
         parent::setUp();
 
-        if (!class_exists('\Illuminate\Foundation\Testing\TestResponse') && class_exists('\Illuminate\Testing\TestResponse')) {
+        if (! class_exists('\Illuminate\Foundation\Testing\TestResponse') && class_exists('\Illuminate\Testing\TestResponse')) {
             class_alias('\Illuminate\Testing\TestResponse', '\Illuminate\Foundation\Testing\TestResponse');
         }
     }
