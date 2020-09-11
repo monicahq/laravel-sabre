@@ -3,6 +3,7 @@
 namespace LaravelSabre\Tests\Unit;
 
 use Illuminate\Http\Response;
+use Illuminate\Testing\TestResponse;
 use LaravelSabre\Sabre\Server;
 use LaravelSabre\Tests\FeatureTestCase;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -20,12 +21,7 @@ class ServerTest extends FeatureTestCase
         $response = $server->getResponse();
         $this->assertInstanceOf(StreamedResponse::class, $response);
 
-        if (class_exists('\Illuminate\Foundation\Testing\TestResponse')) {
-            $response = new \Illuminate\Foundation\Testing\TestResponse($response);
-        } else {
-            $response = new \Illuminate\Testing\TestResponse($response);
-        }
-
+        $response = new TestResponse($response);
         $response->assertOk();
         $this->assertEquals("It's magical\n", $response->streamedContent());
     }
@@ -42,12 +38,7 @@ class ServerTest extends FeatureTestCase
         $response = $server->getResponse();
         $this->assertInstanceOf(StreamedResponse::class, $response);
 
-        if (class_exists('\Illuminate\Foundation\Testing\TestResponse')) {
-            $response = new \Illuminate\Foundation\Testing\TestResponse($response);
-        } else {
-            $response = new \Illuminate\Testing\TestResponse($response);
-        }
-
+        $response = new TestResponse($response);
         $response->assertOk();
         $this->assertEquals("It's", $response->streamedContent());
     }
@@ -62,12 +53,7 @@ class ServerTest extends FeatureTestCase
         $response = $server->getResponse();
         $this->assertInstanceOf(Response::class, $response);
 
-        if (class_exists('\Illuminate\Foundation\Testing\TestResponse')) {
-            $response = new \Illuminate\Foundation\Testing\TestResponse($response);
-        } else {
-            $response = new \Illuminate\Testing\TestResponse($response);
-        }
-
+        $response = new TestResponse($response);
         $response->assertOk();
         $this->assertEquals('Alright', $response->getContent());
     }
