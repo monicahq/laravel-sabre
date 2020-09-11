@@ -16,7 +16,7 @@ class DAVController extends Controller
      */
     public function init(Request $request)
     {
-        abort_if(! config('laravelsabre.enabled'), 404);
+        abort_if(! (bool) config('laravelsabre.enabled'), 404);
 
         $server = $this->getServer($request);
 
@@ -33,7 +33,7 @@ class DAVController extends Controller
      */
     private function getServer(Request $request)
     {
-        $nodes = LaravelSabre::getNodes() ?: [];
+        $nodes = LaravelSabre::getNodes() ?? [];
 
         // Initiate Sabre server
         $server = new Server($nodes);
@@ -49,7 +49,7 @@ class DAVController extends Controller
      */
     private function addPlugins(Server $server)
     {
-        $plugins = LaravelSabre::getPlugins() ?: [];
+        $plugins = LaravelSabre::getPlugins() ?? [];
 
         foreach ($plugins as $plugin) {
             $server->addPlugin($plugin);
