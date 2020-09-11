@@ -82,7 +82,7 @@ class Server extends SabreServer
 
         $contentLength = $this->httpResponse->getHeader('Content-Length');
 
-        return response()->stream(function () use ($body, $contentLength) {
+        return response()->stream(function () use ($body, $contentLength): void {
             if (is_numeric($contentLength) || (! is_null($contentLength) && ctype_digit($contentLength))) {
                 echo stream_get_contents($body, intval($contentLength));
             } else {
@@ -102,7 +102,7 @@ class Server extends SabreServer
         $query = $request->getQueryString();
         $url = Str::finish($request->getPathInfo(), '/');
 
-        return $query ? $url.'?'.$query : $url;
+        return is_null($query) ? $url : $url.'?'.$query;
     }
 
     /**
