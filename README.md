@@ -7,6 +7,7 @@ Laravel-Sabre is an adapter to use Sabre.io DAV Server on Laravel.
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/monicahq/laravel-sabre/Laravel%20Sabre%20workflow?style=flat-square)](https://github.com/monicahq/laravel-sabre/actions?query=branch%3Amaster)
 [![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/monicahq_laravel-sabre?server=https%3A%2F%2Fsonarcloud.io&style=flat-square)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
 [![Coverage Status](https://img.shields.io/sonar/https/sonarcloud.io/monicahq_laravel-sabre/coverage.svg?style=flat-square)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmonicahq%2Flaravel-sabre.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmonicahq%2Flaravel-sabre?ref=badge_shield)
 
 # Installation
 
@@ -151,3 +152,6 @@ This project is part of [MonicaHQ](https://github.com/monicahq/).
 Copyright (c) 2019-2020.
 
 Licensed under the MIT License. [View license](/LICENSE).
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmonicahq%2Flaravel-sabre.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmonicahq%2Flaravel-sabre?ref=badge_large)
