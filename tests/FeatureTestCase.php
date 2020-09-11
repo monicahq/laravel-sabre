@@ -45,8 +45,6 @@ class FeatureTestCase extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        parent::setUp();
-
         if (! class_exists('\Illuminate\Foundation\Testing\TestResponse') && class_exists('\Illuminate\Testing\TestResponse')) {
             class_alias('\Illuminate\Testing\TestResponse', '\Illuminate\Foundation\Testing\TestResponse');
         }
