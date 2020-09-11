@@ -22,7 +22,6 @@ class ServerTest extends FeatureTestCase
         $this->assertInstanceOf(StreamedResponse::class, $response);
 
         $response = new TestResponse($response);
-
         $response->assertOk();
         $this->assertEquals("It's magical\n", $response->streamedContent());
     }
@@ -40,7 +39,6 @@ class ServerTest extends FeatureTestCase
         $this->assertInstanceOf(StreamedResponse::class, $response);
 
         $response = new TestResponse($response);
-
         $response->assertOk();
         $this->assertEquals("It's", $response->streamedContent());
     }
@@ -56,7 +54,6 @@ class ServerTest extends FeatureTestCase
         $this->assertInstanceOf(Response::class, $response);
 
         $response = new TestResponse($response);
-
         $response->assertOk();
         $this->assertEquals('Alright', $response->getContent());
     }

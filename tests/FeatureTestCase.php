@@ -42,6 +42,13 @@ class FeatureTestCase extends TestCase
 
         return $user;
     }
+
+    public static function setUpBeforeClass(): void
+    {
+        if (! class_exists('\Illuminate\Testing\TestResponse') && class_exists('\Illuminate\Foundation\Testing\TestResponse')) {
+            class_alias('\Illuminate\Foundation\Testing\TestResponse', '\Illuminate\Testing\TestResponse');
+        }
+    }
 }
 
 class Authenticated implements Authenticatable
