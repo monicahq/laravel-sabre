@@ -19,7 +19,7 @@ final class LaravelSabre
      *
      * @var array|\Closure
      */
-    private static $plugins;
+    private static $plugins = [];
 
     /**
      * The callback used to authenticate a request.
