@@ -25,8 +25,8 @@ jobs:
         composer_flags:  ['', '--prefer-lowest']
         exclude:
           - php-version: 7.3
-          - laravel_version: 8.*
-          - composer_flags: --prefer-lowest
+            laravel_version: 8.*
+            composer_flags: --prefer-lowest
     name: PHP ${{ matrix.php-version }} | Laravel ${{ matrix.laravel_version }} ${{ matrix.composer_flags }}
 
     steps:
