@@ -52,11 +52,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-v3-${{ matrix.laravel_version }}${{ matrix.composer_flags }}-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-v4-${{ hashFiles('**/composer.json') }}-${{ matrix.php-version }}-${{ matrix.laravel_version }}-${{ matrix.composer_flags }}
           restore-keys: |
-            ${{ runner.os }}-composer-v3-${{ matrix.laravel_version }}${{ matrix.composer_flags }}-${{ hashFiles('**/composer.json') }}
-            ${{ runner.os }}-composer-v3-${{ hashFiles('**/composer.json') }}
-            ${{ runner.os }}-composer-v3-
+            ${{ runner.os }}-composer-v4-${{ hashFiles('**/composer.json') }}-${{ matrix.php-version }}-${{ matrix.laravel_version }}-${{ matrix.composer_flags }}
+            ${{ runner.os }}-composer-v4-${{ hashFiles('**/composer.json') }}-${{ matrix.php-version }}-${{ matrix.laravel_version }}
+            ${{ runner.os }}-composer-v4-${{ hashFiles('**/composer.json') }}-${{ matrix.php-version }}
+            ${{ runner.os }}-composer-v4-${{ hashFiles('**/composer.json') }}
+            ${{ runner.os }}-composer-v4-
 
       - name: Install dependencies with Laravel ${{ matrix.laravel_version }}
         run: |
