@@ -1,17 +1,3 @@
-# UNRELEASED CHANGES:
-
-### New features:
-*
-
-### Enhancements:
-*
-
-### Fixes:
-*
-
-
-# RELEASED VERSIONS:
-
 ## 1.4.0 - 2020-09-09
  ### Enhancements:
   * support Laravel 8
