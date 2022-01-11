@@ -1,5 +1,4 @@
 version: 2
-
 updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: github-actions
@@ -18,7 +17,7 @@ updates:
     schedule:
       interval: weekly
       time: "07:00"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 100
     versioning-strategy: lockfile-only
     labels:
       - php
