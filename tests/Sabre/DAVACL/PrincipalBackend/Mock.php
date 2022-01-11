@@ -135,8 +135,8 @@ class Mock extends AbstractBackend
      *
      * Read the PropPatch documenation for more info and examples.
      *
-     * @param string $path
-     * @param \Sabre\DAV\PropPatch $propPatch
+     * @param  string  $path
+     * @param  \Sabre\DAV\PropPatch  $propPatch
      */
     public function updatePrincipal($path, \Sabre\DAV\PropPatch $propPatch)
     {
