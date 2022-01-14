@@ -10,14 +10,14 @@ final class LaravelSabre
     /**
      * The collection of node to use with the sabre server.
      *
-     * @var array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure
+     * @var array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure|null
      */
     private static $nodes;
 
     /**
      * The collection of plugins to register to the sabre server.
      *
-     * @var array|\Closure
+     * @var array|\Closure|null
      */
     private static $plugins = [];
 
@@ -31,7 +31,7 @@ final class LaravelSabre
     /**
      * Returns list of nodes to create the sabre collection.
      *
-     * @return array|\Sabre\DAV\Tree|\Sabre\DAV\INode
+     * @return array|\Sabre\DAV\Tree|\Sabre\DAV\INode|null
      */
     public static function getNodes()
     {
@@ -64,7 +64,7 @@ final class LaravelSabre
     /**
      * Return the list of plugins to add to the sabre server.
      *
-     * @return array
+     * @return array|null
      */
     public static function getPlugins()
     {
