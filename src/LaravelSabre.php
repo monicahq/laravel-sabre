@@ -45,7 +45,7 @@ final class LaravelSabre
     /**
      * Sets the list of nodes used to create the sabre collection.
      *
-     * @param array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure  $nodes
+     * @param  array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure  $nodes
      * @return static
      */
     public static function nodes($nodes)
@@ -78,7 +78,7 @@ final class LaravelSabre
     /**
      * Sets the list of plugins to add to the sabre server.
      *
-     * @param mixed  $plugins
+     * @param  mixed  $plugins
      * @return static
      */
     public static function plugins($plugins)
@@ -95,8 +95,9 @@ final class LaravelSabre
     /**
      * Add a plugin to the sabre server.
      *
-     * @param mixed  $plugin
+     * @param  mixed  $plugin
      * @return static
+     *
      * @throws InvalidStateException
      */
     public static function plugin($plugin)
@@ -117,7 +118,7 @@ final class LaravelSabre
     /**
      * Register the LaravelSabre authentication callback.
      *
-     * @param \Closure  $callback
+     * @param  \Closure  $callback
      * @return static
      */
     public static function auth(Closure $callback)
@@ -130,7 +131,7 @@ final class LaravelSabre
     /**
      * Return if the given request can open this dav resource.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public static function check($request)

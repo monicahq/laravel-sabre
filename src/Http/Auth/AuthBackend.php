@@ -22,7 +22,7 @@ class AuthBackend implements BackendInterface
     /**
      * Sets the authentication realm for this backend.
      *
-     * @param string $realm
+     * @param  string  $realm
      * @return void
      */
     public function setRealm($realm)
@@ -35,8 +35,8 @@ class AuthBackend implements BackendInterface
      *
      * @psalm-suppress NoInterfaceProperties
      *
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
+     * @param  RequestInterface  $request
+     * @param  ResponseInterface  $response
      * @return array
      */
     public function check(RequestInterface $request, ResponseInterface $response)
@@ -67,8 +67,8 @@ class AuthBackend implements BackendInterface
      * append your own WWW-Authenticate header instead of overwriting the
      * existing one.
      *
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
+     * @param  RequestInterface  $request
+     * @param  ResponseInterface  $response
      * @return void
      */
     public function challenge(RequestInterface $request, ResponseInterface $response)
