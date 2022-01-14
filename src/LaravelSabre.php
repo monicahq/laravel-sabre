@@ -64,7 +64,7 @@ final class LaravelSabre
     /**
      * Return the list of plugins to add to the sabre server.
      *
-     * @return array
+     * @return array|null
      */
     public static function getPlugins()
     {
