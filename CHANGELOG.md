@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/monicahq/laravel-sabre/compare/1.4.1...1.5.0) (2022-01-14)
+
+
+### Features
+
+* prepare to Laravel 9 ([#109](https://github.com/monicahq/laravel-sabre/issues/109)) ([9e9f22b](https://github.com/monicahq/laravel-sabre/commit/9e9f22bdeb0fccb585aa0f5c1cc92b85d23eacb0))
+
 ## 1.4.0 - 2020-09-09
  ### Enhancements:
   * support Laravel 8
