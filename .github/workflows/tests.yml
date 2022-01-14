@@ -72,7 +72,7 @@ jobs:
       - name: Install dependencies with Laravel ${{ matrix.laravel_version }}
         run: |
           export COMPOSER_ROOT_VERSION=dev-master
-          composer require "laravel/framework:${{ matrix.laravel_version }}" --no-interaction --no-progress --prefer-stable --prefer-dist
+          composer require "illuminate/console:${{ matrix.laravel_version }}" "illuminate/http:${{ matrix.laravel_version }}" "illuminate/routing:${{ matrix.laravel_version }}" "illuminate/support:${{ matrix.laravel_version }}" --no-interaction --no-progress --prefer-stable --prefer-dist
 
       - name: Run test suite
         run: phpdbg -dmemory_limit=4G -qrr vendor/bin/phpunit -c phpunit.xml --log-junit ./results/results.xml --coverage-clover ./results/coverage.xml
