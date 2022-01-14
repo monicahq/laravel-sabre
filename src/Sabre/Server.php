@@ -13,7 +13,7 @@ class Server extends SabreServer
     /**
      * Creates a new instance of Sabre Server.
      *
-     * @param \Sabre\DAV\Tree|\Sabre\DAV\INode|array|null $treeOrNode The tree object
+     * @param  \Sabre\DAV\Tree|\Sabre\DAV\INode|array|null  $treeOrNode  The tree object
      *
      * @psalm-suppress InvalidPropertyAssignmentValue
      * @psalm-suppress TooManyArguments
@@ -42,7 +42,7 @@ class Server extends SabreServer
      * @psalm-suppress UndefinedClass
      * @psalm-suppress TooManyArguments
      *
-     * @param Request  $request
+     * @param  Request  $request
      * @return void
      */
     public function setRequest(Request $request)
@@ -94,7 +94,7 @@ class Server extends SabreServer
     /**
      * Get the full URL for the request.
      *
-     * @param Request  $request
+     * @param  Request  $request
      * @return string
      */
     private function fullUrl(Request $request)

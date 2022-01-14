@@ -2,11 +2,11 @@
 
 Laravel-Sabre is an adapter to use Sabre.io DAV Server on Laravel.
 
-[![Latest Version](https://img.shields.io/packagist/v/monicahq/laravel-sabre.svg?style=flat-square)](https://github.com/monicahq/laravel-sabre/releases)
-[![Downloads](https://img.shields.io/packagist/dt/monicahq/laravel-sabre.svg?style=flat-square)](https://packagist.org/packages/monicahq/laravel-sabre)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/monicahq/laravel-sabre/Laravel%20Sabre%20workflow?style=flat-square)](https://github.com/monicahq/laravel-sabre/actions?query=branch%3Amaster)
-[![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/monicahq_laravel-sabre?server=https%3A%2F%2Fsonarcloud.io&style=flat-square)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
-[![Coverage Status](https://img.shields.io/sonar/https/sonarcloud.io/monicahq_laravel-sabre/coverage.svg?style=flat-square)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
+[![Latest Version](https://img.shields.io/packagist/v/monicahq/laravel-sabre?style=flat-square&label=Latest%20Version)](https://github.com/monicahq/laravel-sabre/releases)
+[![Downloads](https://img.shields.io/packagist/dt/monicahq/laravel-sabre?style=flat-square&label=Downloads)](https://packagist.org/packages/monicahq/laravel-sabre)
+[![Workflow Status](https://img.shields.io/github/workflow/status/monicahq/laravel-sabre/Unit%20tests?style=flat-square&label=Workflow%20Status)](https://github.com/monicahq/laravel-sabre/actions?query=branch%3Amain)
+[![Quality Gate](https://img.shields.io/sonar/quality_gate/monicahq_laravel-sabre?server=https%3A%2F%2Fsonarcloud.io&style=flat-square&label=Quality%20Gate)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
+[![Coverage Status](https://img.shields.io/sonar/coverage/monicahq_laravel-sabre?server=https%3A%2F%2Fsonarcloud.io&style=flat-square&label=Coverage%20Status)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
 
 # Installation
 
@@ -144,10 +144,10 @@ LaravelSabre::auth(function () {
 
 # License
 
-Author: [Alexis Saettler](https://github.com/asbiin)
+Author: [Alexis Saettler](https://github.com/monicahq)
 
 This project is part of [MonicaHQ](https://github.com/monicahq/).
 
-Copyright (c) 2019-2020.
+Copyright © 2019–2022.
 
-Licensed under the MIT License. [View license](/LICENSE).
+Licensed under the MIT License. [View license](/LICENSE.md).

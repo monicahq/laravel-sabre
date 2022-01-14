@@ -52,8 +52,8 @@ class Mock implements BackendInterface
      *
      * principals/users/[username]
      *
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
+     * @param  RequestInterface  $request
+     * @param  ResponseInterface  $response
      * @return array
      */
     public function check(RequestInterface $request, ResponseInterface $response)
