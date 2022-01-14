@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/monicahq/laravel-sabre/compare/1.5.0...1.5.1) (2022-01-14)
+
+
+### Bug Fixes
+
+* fix required dependencies ([#112](https://github.com/monicahq/laravel-sabre/issues/112)) ([2149c91](https://github.com/monicahq/laravel-sabre/commit/2149c915b1f22d297c2efca92efe976cb4c94573))
+
 # [1.5.0](https://github.com/monicahq/laravel-sabre/compare/1.4.1...1.5.0) (2022-01-14)
 
 
