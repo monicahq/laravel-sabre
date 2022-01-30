@@ -1,3 +1,5 @@
+## [1.5.2](https://github.com/monicahq/laravel-sabre/compare/1.5.1...1.5.2) (2022-01-30)
+
 ## [1.5.1](https://github.com/monicahq/laravel-sabre/compare/1.5.0...1.5.1) (2022-01-14)
 
 
