@@ -1,3 +1,12 @@
+# [1.6.0](https://github.com/monicahq/laravel-sabre/compare/1.5.2...1.6.0) (2022-04-23)
+
+
+### Features
+
+* update thecodingmachine/safe dependency ([#123](https://github.com/monicahq/laravel-sabre/issues/123)) ([98b8259](https://github.com/monicahq/laravel-sabre/commit/98b825943952d0e7c1d75657555dc2185fc4d7ae))
+* drop Laravel 7 support (#124) 
+
+
 ## [1.5.1](https://github.com/monicahq/laravel-sabre/compare/1.5.0...1.5.1) (2022-01-14)
 
 
