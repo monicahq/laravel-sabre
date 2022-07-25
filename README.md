@@ -25,11 +25,10 @@ This package supports Laravel 5.6 and newer, and has been tested with php 7.1 an
 
 ## Configuration
 
-You can publish the LaravelSabre configuration in a file named `config/laravelsabre.php`.
-Simply run this artisan command:
+If you want, you can publish the package config file to `config/laravelsabre.php`:
 
-``` bash
-php artisan laravelsabre:publish
+```sh
+php artisan vendor:publish --provider="LaravelSabre\LaravelSabreServiceProvider"
 ```
 
 If desired, you may disable LaravelSabre entirely using the `enabled` configuration option:
