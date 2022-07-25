@@ -73,9 +73,5 @@ class LaravelSabreServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/laravelsabre.php', 'laravelsabre'
         );
-
-        $this->commands([
-            Console\PublishCommand::class,
-        ]);
     }
 }

@@ -57,7 +57,8 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "composer/package-versions-deprecated": true
+            "composer/package-versions-deprecated": true,
+            "ocramius/package-versions": true
         }
     },
     "minimum-stability": "dev",
