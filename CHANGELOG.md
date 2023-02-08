@@ -1,3 +1,10 @@
+## [1.7.0](https://github.com/monicahq/laravel-sabre/compare/1.6.0...1.7.0) (2023-02-08)
+
+
+### Features
+
+* support Laravel 10.x + test php 8.2 ([#137](https://github.com/monicahq/laravel-sabre/issues/137)) ([22d0d84](https://github.com/monicahq/laravel-sabre/commit/22d0d84dd7a774ea8cfba14538fc8feeb09ea261))
+
 # [1.6.0](https://github.com/monicahq/laravel-sabre/compare/1.5.2...1.6.0) (2022-04-23)
 
 
