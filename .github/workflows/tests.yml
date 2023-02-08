@@ -15,9 +15,9 @@ on:
       - created
 
 env:
-  default-php-version: '8.1'
-  default-laravel-version: '9.*'
-  semantic-node-version: 16
+  default-php-version: '8.2'
+  default-laravel-version: '10.*'
+  semantic-node-version: 18
 
 
 jobs:
@@ -26,8 +26,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['8.0', '8.1']
-        laravel-version: [8.*, 9.*]
+        php-version: ['8.0', '8.1', '8.2']
+        laravel-version: [8.*, 9.*, 10.*]
+        exclude:
+          - laravel-version: 10.*
+            php-version: '8.0'
     name: PHP ${{ matrix.php-version }} | Laravel ${{ matrix.laravel-version }}
 
     steps:
