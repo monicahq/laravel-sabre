@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Sabre\DAV\Server as SabreServer;
+
 use function Safe\stream_get_contents;
 
 class Server extends SabreServer
