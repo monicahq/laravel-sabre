@@ -80,11 +80,15 @@ jobs:
         run: sed -i -e "s%$GITHUB_WORKSPACE/%%g" *.xml
         working-directory: results
 
+      - name: Fix laravel version
+        id: laravel
+        run: echo "version=${{ matrix.laravel-version }}" | sed "s/*/0/g" >> $GITHUB_OUTPUT
+
       - name: Store results
         if: matrix.php-version == env.default-php-version && matrix.laravel-version == env.default-laravel-version
         uses: actions/upload-artifact@v4
         with:
-          name: results-${{ matrix.php-version }}-${{ matrix.laravel-version }}
+          name: results-${{ matrix.php-version }}-${{ steps.laravel.outputs.version }}
           path: results
 
 
