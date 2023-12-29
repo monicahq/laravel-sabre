@@ -16,7 +16,7 @@ on:
 
 jobs:
   tests:
-    uses: monicahq/workflows/.github/workflows/library.yml@main
+    uses: monicahq/workflows/.github/workflows/library.yml@fix-results
     with:
       php-version: ${{ matrix.php-version }}
       laravel-version: ${{ matrix.laravel-version }}
@@ -32,7 +32,7 @@ jobs:
             laravel-version: 10.*
 
   reporting:
-    uses: monicahq/workflows/.github/workflows/reporting.yml@main
+    uses: monicahq/workflows/.github/workflows/reporting.yml@fix-results
     with:
       project: monicahq_laravel-sabre
       sources: src
@@ -41,7 +41,7 @@ jobs:
     needs: tests
 
   release:
-    uses: monicahq/workflows/.github/workflows/release.yml@main
+    uses: monicahq/workflows/.github/workflows/release.yml@fix-results
     secrets:
       GH_TOKEN_RELEASE: ${{ secrets.GH_TOKEN_RELEASE }}
     needs: tests
