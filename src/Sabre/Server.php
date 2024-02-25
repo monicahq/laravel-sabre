@@ -21,7 +21,7 @@ class Server extends SabreServer
      */
     public function __construct($treeOrNode = null)
     {
-        if (App::environment('testing')) {
+        if (App::environment('testing') === true) {
             $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI'] ?? '/';
             $_SERVER['REQUEST_METHOD'] = $_SERVER['REQUEST_METHOD'] ?? 'CLI';
         }
@@ -32,7 +32,7 @@ class Server extends SabreServer
         $sapi = new Sapi();
         $this->sapi = $sapi;
 
-        if (! App::environment('production')) {
+        if (App::environment('production') === false) {
             $this->debugExceptions = true;
         }
     }
@@ -54,7 +54,7 @@ class Server extends SabreServer
         // Set Url with trailing slash
         $this->httpRequest->setUrl($this->fullUrl($request));
 
-        if (App::environment('testing')) {
+        if (App::environment('testing') === true) {
             // Testing needs request to be set manually
             $this->httpRequest->setMethod($request->method());
             $this->httpRequest->setBody($request->getContent(true));
