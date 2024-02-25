@@ -2,7 +2,6 @@
 
 namespace LaravelSabre\Tests;
 
-use Illuminate\Contracts\Auth\Authenticatable;
 use LaravelSabre\LaravelSabreServiceProvider;
 use Orchestra\Testbench\TestCase;
 
@@ -48,38 +47,5 @@ class FeatureTestCase extends TestCase
         if (! class_exists('\Illuminate\Testing\TestResponse') && class_exists('\Illuminate\Foundation\Testing\TestResponse')) {
             class_alias('\Illuminate\Foundation\Testing\TestResponse', '\Illuminate\Testing\TestResponse');
         }
-    }
-}
-
-class Authenticated implements Authenticatable
-{
-    public $email;
-
-    public function getAuthIdentifierName()
-    {
-        return 'Identifier name';
-    }
-
-    public function getAuthIdentifier()
-    {
-        return 'auth-identifier';
-    }
-
-    public function getAuthPassword()
-    {
-        return 'secret';
-    }
-
-    public function getRememberToken()
-    {
-        return 'token';
-    }
-
-    public function setRememberToken($value)
-    {
-    }
-
-    public function getRememberTokenName()
-    {
     }
 }
