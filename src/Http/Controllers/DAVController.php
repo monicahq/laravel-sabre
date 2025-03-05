@@ -7,6 +7,10 @@ use Illuminate\Routing\Controller;
 use LaravelSabre\LaravelSabre;
 use LaravelSabre\Sabre\Server;
 
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress ClassMustBeFinal
+ */
 class DAVController extends Controller
 {
     /**

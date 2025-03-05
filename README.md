@@ -18,10 +18,6 @@ composer require monicahq/laravel-sabre
 
 You don't need to add this package to your service providers.
 
-## Support
-
-This package supports Laravel 5.6 and newer, and has been tested with php 7.1 and newer versions.
-
 
 ## Configuration
 

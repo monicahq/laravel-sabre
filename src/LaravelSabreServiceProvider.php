@@ -5,6 +5,10 @@ namespace LaravelSabre;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress ClassMustBeFinal
+ */
 class LaravelSabreServiceProvider extends ServiceProvider
 {
     /**
@@ -68,6 +72,7 @@ class LaravelSabreServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    #[\Override]
     public function register()
     {
         $this->mergeConfigFrom(

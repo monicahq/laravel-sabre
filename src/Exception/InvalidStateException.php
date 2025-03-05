@@ -4,6 +4,6 @@ namespace LaravelSabre\Exception;
 
 use RuntimeException;
 
-class InvalidStateException extends RuntimeException
+final class InvalidStateException extends RuntimeException
 {
 }

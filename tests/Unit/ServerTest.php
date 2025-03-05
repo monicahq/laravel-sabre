@@ -57,4 +57,21 @@ class ServerTest extends FeatureTestCase
         $response->assertOk();
         $this->assertEquals('Alright', $response->getContent());
     }
+
+    public function test_response_get_callable()
+    {
+        $server = new Server(null);
+
+        $server->httpResponse->setBody(function() {
+            echo 'Alright';
+        });
+        $server->httpResponse->setStatus(200);
+
+        $response = $server->getResponse();
+        $this->assertInstanceOf(StreamedResponse::class, $response);
+
+        $response = new TestResponse($response);
+        $response->assertOk();
+        $this->assertEquals('Alright', $response->streamedContent());
+    }
 }
