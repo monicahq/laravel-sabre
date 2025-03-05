@@ -12,4 +12,3 @@ parameters:
     level: 5
     ignoreErrors:
         - '#Access to an undefined property Illuminate\\Foundation\\Auth\\User::\$email\.#'
-    excludes_analyse:

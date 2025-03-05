@@ -4,6 +4,10 @@ namespace LaravelSabre\Http\Middleware;
 
 use LaravelSabre\LaravelSabre;
 
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress ClassMustBeFinal
+ */
 class Authorize
 {
     /**

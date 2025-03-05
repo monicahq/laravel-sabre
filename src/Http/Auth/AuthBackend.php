@@ -7,6 +7,10 @@ use Sabre\DAV\Auth\Backend\BackendInterface;
 use Sabre\HTTP\RequestInterface;
 use Sabre\HTTP\ResponseInterface;
 
+/**
+ * @psalm-suppress UnusedClass
+ * @psalm-suppress ClassMustBeFinal
+ */
 class AuthBackend implements BackendInterface
 {
     /**
@@ -33,12 +37,11 @@ class AuthBackend implements BackendInterface
     /**
      * Check Laravel authentication.
      *
-     * @psalm-suppress NoInterfaceProperties
-     *
      * @param  RequestInterface  $request
      * @param  ResponseInterface  $response
      * @return array
      */
+    #[\Override]
     public function check(RequestInterface $request, ResponseInterface $response)
     {
         /** @var \Illuminate\Foundation\Auth\User|null */
@@ -47,6 +50,9 @@ class AuthBackend implements BackendInterface
             return [false, 'User is not authenticated'];
         }
 
+        /**
+         * @psalm-suppress UndefinedMagicPropertyFetch
+         */
         return [true, 'principals/'.$user->email];
     }
 
@@ -71,6 +77,7 @@ class AuthBackend implements BackendInterface
      * @param  ResponseInterface  $response
      * @return void
      */
+    #[\Override]
     public function challenge(RequestInterface $request, ResponseInterface $response)
     {
         $auth = new \Sabre\HTTP\Auth\Bearer(

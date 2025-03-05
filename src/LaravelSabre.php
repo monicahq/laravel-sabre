@@ -47,6 +47,8 @@ final class LaravelSabre
      *
      * @param  array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure  $nodes
      * @return static
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public static function nodes($nodes)
     {
@@ -80,6 +82,8 @@ final class LaravelSabre
      *
      * @param  mixed  $plugins
      * @return static
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public static function plugins($plugins)
     {
@@ -99,6 +103,8 @@ final class LaravelSabre
      * @return static
      *
      * @throws InvalidStateException
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public static function plugin($plugin)
     {
@@ -120,6 +126,8 @@ final class LaravelSabre
      *
      * @param  \Closure  $callback
      * @return static
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public static function auth(Closure $callback)
     {
@@ -133,6 +141,8 @@ final class LaravelSabre
      *
      * @param  \Illuminate\Http\Request  $request
      * @return bool
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public static function check($request)
     {
@@ -145,6 +155,8 @@ final class LaravelSabre
      * Clear all datas.
      *
      * @return void
+     *
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public static function clear()
     {
