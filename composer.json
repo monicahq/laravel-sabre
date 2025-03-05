@@ -20,18 +20,18 @@
         }
     ],
     "require": {
-        "illuminate/support": "^10.0 || ^11.0 || ^12.0",
+        "illuminate/support": "^11.0 || ^12.0",
         "sabre/dav": "^4.0",
         "thecodingmachine/safe": "^3.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.4",
-        "larastan/larastan": "^2.0 || ^3.0",
+        "larastan/larastan": "^3.0",
         "ocramius/package-versions": "^1.9 || ^2.0",
-        "orchestra/testbench": "^8.0 || ^9.0 || ^10.0",
-        "phpstan/phpstan-deprecation-rules": "^1.0 || ^2.0",
-        "phpstan/phpstan-phpunit": "^1.0 || ^2.0",
-        "phpstan/phpstan-strict-rules": "^1.0 || ^2.0",
+        "orchestra/testbench": "^9.0 || ^10.0",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^10.0 || ^11.0 || ^12.0",
         "roave/security-advisories": "dev-master",
         "thecodingmachine/phpstan-safe-rule": "^1.0",
