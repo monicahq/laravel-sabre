@@ -18,6 +18,8 @@ final class LaravelSabre
      * The collection of plugins to register to the sabre server.
      *
      * @var array|\Closure|null
+     *
+     * @phpstan-ignore property.unusedType
      */
     private static $plugins = [];
 
