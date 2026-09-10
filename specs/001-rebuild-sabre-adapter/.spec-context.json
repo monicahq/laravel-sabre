@@ -1,0 +1,17 @@
+{
+  "workflow": "speckit",
+  "specName": "Rebuild Sabre Adapter",
+  "branch": "",
+  "currentStep": "specify",
+  "status": "completed",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-10T08:02:06.594Z"
+    }
+  ],
+  "telemetryInstanceId": "0d4ed90d-27df-4629-b83f-31c816565a19"
+}
