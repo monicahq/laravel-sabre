@@ -2,15 +2,46 @@
 
 namespace LaravelSabre;
 
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use LaravelSabre\Http\Auth\PrincipalResolver;
+use LaravelSabre\Http\Middleware\EnsureEnabled;
 
 /**
- * @psalm-suppress UnusedClass
- * @psalm-suppress ClassMustBeFinal
+ * Registered automatically through the package's Composer extra, so an application never lists it.
+ *
+ * @api
  */
 class LaravelSabreServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any package services.
+     *
+     * @return void
+     */
+    #[\Override]
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/laravelsabre.php', 'laravelsabre'
+        );
+
+        $this->app->singleton(Registry::class);
+
+        $this->app->bind(PrincipalResolver::class, function (Application $app): PrincipalResolver {
+            $config = $app->make('config');
+
+            return new PrincipalResolver(
+                $app->make(Registry::class),
+                $app->make(AuthFactory::class),
+                $config->get('laravelsabre.guard'),
+                (string) $config->get('laravelsabre.principal_attribute', 'email')
+            );
+        });
+    }
+
     /**
      * Bootstrap any package services.
      *
@@ -27,8 +58,6 @@ class LaravelSabreServiceProvider extends ServiceProvider
     /**
      * Register the package routes.
      *
-     * @psalm-suppress InvalidArgument
-     *
      * @return void
      */
     private function registerRoutes()
@@ -41,14 +70,15 @@ class LaravelSabreServiceProvider extends ServiceProvider
     /**
      * Get the route group configuration array.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     private function routeConfiguration()
     {
         return [
-            'middleware' => 'laravelsabre',
+            // The master switch is attached here, ahead of the configurable group, so that a config
+            // file published under 1.x is still guarded by it.
+            'middleware' => [EnsureEnabled::class, 'laravelsabre'],
             'domain' => config('laravelsabre.domain', null),
-            'namespace' => 'LaravelSabre\Http\Controllers',
             'prefix' => config('laravelsabre.path'),
         ];
     }
@@ -65,18 +95,5 @@ class LaravelSabreServiceProvider extends ServiceProvider
                 __DIR__.'/../config/laravelsabre.php' => config_path('laravelsabre.php'),
             ], 'laravelsabre-config');
         }
-    }
-
-    /**
-     * Register any package services.
-     *
-     * @return void
-     */
-    #[\Override]
-    public function register()
-    {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/laravelsabre.php', 'laravelsabre'
-        );
     }
 }

@@ -1,0 +1,28 @@
+{
+    "name": "propfind-principal-depth-1",
+    "scenario": {
+        "fixture": "principals",
+        "method": "PROPFIND",
+        "uri": "/dav/principals",
+        "headers": {
+            "Depth": "1"
+        },
+        "body": ""
+    },
+    "expected": {
+        "status": 207,
+        "headers": {
+            "content-type": [
+                "application/xml; charset=utf-8"
+            ],
+            "dav": [
+                "1, 3, extended-mkcol, addressbook"
+            ],
+            "vary": [
+                "Brief,Prefer"
+            ]
+        },
+        "body": "<?xml version=\"1.0\"?>\n<d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\" xmlns:card=\"urn:ietf:params:xml:ns:carddav\"><d:response><d:href>/dav/principals/</d:href><d:propstat><d:prop><d:resourcetype><d:collection/></d:resourcetype></d:prop><d:status>HTTP/1.1 200 OK</d:status></d:propstat></d:response><d:response><d:href>/dav/principals/user1</d:href><d:propstat><d:prop><d:resourcetype/></d:prop><d:status>HTTP/1.1 200 OK</d:status></d:propstat></d:response><d:response><d:href>/dav/principals/admin</d:href><d:propstat><d:prop><d:resourcetype/></d:prop><d:status>HTTP/1.1 200 OK</d:status></d:propstat></d:response><d:response><d:href>/dav/principals/user2</d:href><d:propstat><d:prop><d:resourcetype/></d:prop><d:status>HTTP/1.1 200 OK</d:status></d:propstat></d:response></d:multistatus>"
+    },
+    "deviation": null
+}

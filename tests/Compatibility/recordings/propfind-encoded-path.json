@@ -1,0 +1,28 @@
+{
+    "name": "propfind-encoded-path",
+    "scenario": {
+        "fixture": "files",
+        "method": "PROPFIND",
+        "uri": "/dav/hello%20world.txt",
+        "headers": {
+            "Depth": "0"
+        },
+        "body": ""
+    },
+    "expected": {
+        "status": 207,
+        "headers": {
+            "content-type": [
+                "application/xml; charset=utf-8"
+            ],
+            "dav": [
+                "1, 3, extended-mkcol"
+            ],
+            "vary": [
+                "Brief,Prefer"
+            ]
+        },
+        "body": "<?xml version=\"1.0\"?>\n<d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\"><d:response><d:href>/dav/hello%20world.txt</d:href><d:propstat><d:prop><d:getlastmodified>TIME</d:getlastmodified><d:getcontentlength>19</d:getcontentlength><d:resourcetype/><d:getetag>ETAG</d:getetag></d:prop><d:status>HTTP/1.1 200 OK</d:status></d:propstat></d:response></d:multistatus>"
+    },
+    "deviation": null
+}

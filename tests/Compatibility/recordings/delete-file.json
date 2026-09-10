@@ -1,0 +1,16 @@
+{
+    "name": "delete-file",
+    "scenario": {
+        "fixture": "files",
+        "method": "DELETE",
+        "uri": "/dav/hello.txt",
+        "headers": [],
+        "body": ""
+    },
+    "expected": {
+        "status": 204,
+        "headers": [],
+        "body": ""
+    },
+    "deviation": null
+}

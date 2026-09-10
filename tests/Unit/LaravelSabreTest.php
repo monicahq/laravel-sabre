@@ -2,15 +2,16 @@
 
 namespace LaravelSabre\Tests\Unit;
 
-use LaravelSabre\Exception\InvalidStateException;
+use Illuminate\Http\Request;
 use LaravelSabre\LaravelSabre;
+use LaravelSabre\Registry;
+use LaravelSabre\Tests\Authenticated;
 use LaravelSabre\Tests\FeatureTestCase;
+use Sabre\CardDAV\Plugin as CardDAVPlugin;
+use Sabre\DAV\SimpleCollection;
 
 class LaravelSabreTest extends FeatureTestCase
 {
-    /**
-     * @return void
-     */
     protected function tearDown(): void
     {
         LaravelSabre::clear();
@@ -18,131 +19,72 @@ class LaravelSabreTest extends FeatureTestCase
         parent::tearDown();
     }
 
-    public function test_add_node_null()
+    public function test_the_entry_point_writes_to_the_application_registry()
     {
-        LaravelSabre::nodes(null);
+        $node = new SimpleCollection('one');
+        $plugin = new CardDAVPlugin();
 
-        $this->assertIsArray(LaravelSabre::getNodes());
-        $this->assertCount(0, LaravelSabre::getNodes());
-        $this->assertEquals([], LaravelSabre::getNodes());
+        LaravelSabre::nodes([$node]);
+        LaravelSabre::plugin($plugin);
+
+        $registry = $this->app->make(Registry::class);
+
+        $this->assertSame([$node], $registry->resolveNodes());
+        $this->assertSame([$plugin], $registry->resolvePlugins());
     }
 
-    public function test_add_node_collection()
+    public function test_every_registration_call_returns_the_registry_for_chaining()
     {
-        LaravelSabre::nodes([
-            'test',
-        ]);
-
-        $this->assertIsArray(LaravelSabre::getNodes());
-        $this->assertCount(1, LaravelSabre::getNodes());
-        $this->assertEquals(['test'], LaravelSabre::getNodes());
+        $this->assertInstanceOf(Registry::class, LaravelSabre::nodes([]));
+        $this->assertInstanceOf(Registry::class, LaravelSabre::plugins([]));
+        $this->assertInstanceOf(Registry::class, LaravelSabre::plugin(new CardDAVPlugin()));
+        $this->assertInstanceOf(Registry::class, LaravelSabre::auth(function (): bool {
+            return true;
+        }));
+        $this->assertInstanceOf(Registry::class, LaravelSabre::principal(function (): string {
+            return 'someone';
+        }));
     }
 
-    public function test_add_node_callback()
+    public function test_check_admits_when_no_rule_is_registered()
     {
-        LaravelSabre::nodes(function () {
-            return ['test'];
-        });
-
-        $this->assertIsArray(LaravelSabre::getNodes());
-        $this->assertCount(1, LaravelSabre::getNodes());
-        $this->assertEquals(['test'], LaravelSabre::getNodes());
+        $this->assertTrue(LaravelSabre::check(new Request()));
     }
 
-    public function test_add_plugins_null()
+    public function test_check_reflects_the_registered_rule()
     {
-        LaravelSabre::plugins(null);
-
-        $this->assertIsArray(LaravelSabre::getPlugins());
-        $this->assertCount(0, LaravelSabre::getPlugins());
-        $this->assertEquals([], LaravelSabre::getPlugins());
-    }
-
-    public function test_add_plugin_null()
-    {
-        LaravelSabre::plugin(null);
-
-        $this->assertIsArray(LaravelSabre::getPlugins());
-        $this->assertCount(1, LaravelSabre::getPlugins());
-        $this->assertEquals([null], LaravelSabre::getPlugins());
-    }
-
-    public function test_add_plugins_collection()
-    {
-        LaravelSabre::plugins([
-            'test',
-        ]);
-
-        $this->assertIsArray(LaravelSabre::getPlugins());
-        $this->assertCount(1, LaravelSabre::getPlugins());
-        $this->assertEquals(['test'], LaravelSabre::getPlugins());
-    }
-
-    public function test_add_plugin_collection()
-    {
-        LaravelSabre::plugin('test');
-
-        $this->assertIsArray(LaravelSabre::getPlugins());
-        $this->assertCount(1, LaravelSabre::getPlugins());
-        $this->assertEquals(['test'], LaravelSabre::getPlugins());
-    }
-
-    public function test_add_plugin_collection2()
-    {
-        LaravelSabre::plugin('test');
-        LaravelSabre::plugin('yeah');
-
-        $this->assertIsArray(LaravelSabre::getPlugins());
-        $this->assertCount(2, LaravelSabre::getPlugins());
-        $this->assertEquals(['test', 'yeah'], LaravelSabre::getPlugins());
-    }
-
-    public function test_add_plugins_callback()
-    {
-        LaravelSabre::plugins(function () {
-            return ['test'];
-        });
-
-        $this->assertIsArray(LaravelSabre::getPlugins());
-        $this->assertCount(1, LaravelSabre::getPlugins());
-        $this->assertEquals(['test'], LaravelSabre::getPlugins());
-    }
-
-    public function test_add_plugin_exception()
-    {
-        LaravelSabre::plugins(function () {
-            return ['test'];
-        });
-
-        $this->expectException(InvalidStateException::class);
-
-        LaravelSabre::plugin('test');
-    }
-
-    public function test_clear()
-    {
-        LaravelSabre::plugins(['test']);
-
-        $this->assertIsArray(LaravelSabre::getPlugins());
-        $this->assertCount(1, LaravelSabre::getPlugins());
-        $this->assertEquals(['test'], LaravelSabre::getPlugins());
-
-        LaravelSabre::clear();
-
-        $this->assertIsArray(LaravelSabre::getPlugins());
-        $this->assertCount(0, LaravelSabre::getPlugins());
-        $this->assertEquals([], LaravelSabre::getPlugins());
-    }
-
-    public function test_add_auth_callback()
-    {
-        $this->assertTrue(LaravelSabre::check(new \Illuminate\Http\Request()));
-
-        LaravelSabre::auth(function () {
+        LaravelSabre::auth(function (): bool {
             return false;
         });
 
-        $this->assertIsBool(LaravelSabre::check(new \Illuminate\Http\Request()));
-        $this->assertFalse(LaravelSabre::check(new \Illuminate\Http\Request()));
+        $this->assertFalse(LaravelSabre::check(new Request()));
+    }
+
+    public function test_principal_mapper_is_used_for_the_signed_in_user()
+    {
+        LaravelSabre::principal(function ($user): string {
+            return 'uid/'.$user->getAuthIdentifier();
+        });
+
+        $mapper = $this->app->make(Registry::class)->principalMapper();
+        $user = new Authenticated();
+
+        $this->assertNotNull($mapper);
+        $this->assertSame('uid/auth-identifier', $mapper($user));
+    }
+
+    public function test_clear_resets_the_registration()
+    {
+        LaravelSabre::plugin(new CardDAVPlugin());
+
+        LaravelSabre::clear();
+
+        $this->assertSame([], $this->app->make(Registry::class)->resolvePlugins());
+    }
+
+    public function test_the_removed_1x_accessors_are_gone()
+    {
+        $this->assertFalse(method_exists(LaravelSabre::class, 'getNodes'));
+        $this->assertFalse(method_exists(LaravelSabre::class, 'getPlugins'));
     }
 }

@@ -4,59 +4,21 @@ namespace LaravelSabre\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use LaravelSabre\LaravelSabre;
-use LaravelSabre\Sabre\Server;
+use LaravelSabre\Registry;
+use LaravelSabre\ServerFactory;
+use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @psalm-suppress UnusedClass
- * @psalm-suppress ClassMustBeFinal
- */
-class DAVController extends Controller
+final class DAVController extends Controller
 {
     /**
-     * Display the specified resource.
+     * Serve one DAV request.
      *
-     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
-     */
-    public function init(Request $request)
-    {
-        abort_if(! (bool) config('laravelsabre.enabled'), 404);
-
-        $server = $this->getServer($request);
-
-        $this->addPlugins($server);
-
-        // Execute sabre requests
-        $server->start();
-
-        return $server->getResponse();
-    }
-
-    /**
-     * @return Server
-     */
-    private function getServer(Request $request)
-    {
-        $nodes = LaravelSabre::getNodes() ?? [];
-
-        // Initiate Sabre server
-        $server = new Server($nodes);
-        $server->setRequest($request);
-
-        return $server;
-    }
-
-    /**
-     * Add required plugins.
+     * This is the route action, invoked by the framework router rather than from inside the package.
      *
-     * @return void
+     * @api
      */
-    private function addPlugins(Server $server)
+    public function init(Request $request, Registry $registry): Response
     {
-        $plugins = LaravelSabre::getPlugins() ?? [];
-
-        foreach ($plugins as $plugin) {
-            $server->addPlugin($plugin);
-        }
+        return ServerFactory::make($registry)->handle($request);
     }
 }

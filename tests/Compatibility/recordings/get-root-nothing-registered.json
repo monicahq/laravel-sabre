@@ -1,0 +1,20 @@
+{
+    "name": "get-root-nothing-registered",
+    "scenario": {
+        "fixture": "empty",
+        "method": "GET",
+        "uri": "/dav",
+        "headers": [],
+        "body": ""
+    },
+    "expected": {
+        "status": 501,
+        "headers": {
+            "content-type": [
+                "application/xml; charset=utf-8"
+            ]
+        },
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<d:error xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\">\n  <s:sabredav-version>VERSION</s:sabredav-version>\n  <s:exception>Sabre\\DAV\\Exception\\NotImplemented</s:exception>\n  <s:message>There was no plugin in the system that was willing to handle this GET method. Enable the Browser plugin to get a better result here.</s:message>\n  <s:file>FILE</s:file>\n  <s:line>LINE</s:line>\n  <s:code>0</s:code>\n  <s:stacktrace>TRACE</s:stacktrace>\n</d:error>"
+    },
+    "deviation": null
+}

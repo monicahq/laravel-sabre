@@ -1,0 +1,35 @@
+{
+    "name": "options-root",
+    "scenario": {
+        "fixture": "files",
+        "method": "OPTIONS",
+        "uri": "/dav",
+        "headers": [],
+        "body": ""
+    },
+    "expected": {
+        "status": 200,
+        "headers": {
+            "accept-ranges": [
+                "bytes"
+            ],
+            "allow": [
+                "OPTIONS, GET, HEAD, DELETE, PROPFIND, PUT, PROPPATCH, COPY, MOVE, REPORT"
+            ],
+            "content-length": [
+                "0"
+            ],
+            "content-type": [
+                "text/html; charset=utf-8"
+            ],
+            "dav": [
+                "1, 3, extended-mkcol"
+            ],
+            "ms-author-via": [
+                "DAV"
+            ]
+        },
+        "body": ""
+    },
+    "deviation": null
+}

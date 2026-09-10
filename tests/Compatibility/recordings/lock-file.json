@@ -1,0 +1,22 @@
+{
+    "name": "lock-file",
+    "scenario": {
+        "fixture": "locks",
+        "method": "LOCK",
+        "uri": "/dav/hello.txt",
+        "headers": {
+            "Content-Type": "application/xml"
+        },
+        "body": "<?xml version=\"1.0\"?><d:lockinfo xmlns:d=\"DAV:\"><d:lockscope><d:exclusive/></d:lockscope><d:locktype><d:write/></d:locktype><d:owner><d:href>mailto:tester@example.com</d:href></d:owner></d:lockinfo>"
+    },
+    "expected": {
+        "status": 200,
+        "headers": {
+            "content-type": [
+                "application/xml; charset=utf-8"
+            ]
+        },
+        "body": "<?xml version=\"1.0\"?>\n<d:prop xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\">\n <d:lockdiscovery>\n  <d:activelock>\n   <d:lockscope>\n    <d:exclusive/>\n   </d:lockscope>\n   <d:locktype>\n    <d:write/>\n   </d:locktype>\n   <d:lockroot>\n    <d:href>/dav/hello.txt</d:href>\n   </d:lockroot>\n   <d:depth>infinity</d:depth>\n   <d:timeout>Second-1800</d:timeout>\n   <d:locktoken>\n    <d:href>opaquelocktoken:TOKEN</d:href>\n   </d:locktoken>\n   <d:owner>\n    <d:href>mailto:tester@example.com</d:href>\n   </d:owner>\n  </d:activelock>\n </d:lockdiscovery>\n</d:prop>"
+    },
+    "deviation": null
+}

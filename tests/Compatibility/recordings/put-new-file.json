@@ -1,0 +1,25 @@
+{
+    "name": "put-new-file",
+    "scenario": {
+        "fixture": "files",
+        "method": "PUT",
+        "uri": "/dav/created.txt",
+        "headers": {
+            "Content-Type": "text/plain"
+        },
+        "body": "created by the compatibility suite"
+    },
+    "expected": {
+        "status": 201,
+        "headers": {
+            "content-length": [
+                "0"
+            ],
+            "content-type": [
+                "text/html; charset=utf-8"
+            ]
+        },
+        "body": ""
+    },
+    "deviation": null
+}
