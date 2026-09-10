@@ -1,0 +1,25 @@
+{
+    "name": "proppatch-file",
+    "scenario": {
+        "fixture": "files",
+        "method": "PROPPATCH",
+        "uri": "/dav/hello.txt",
+        "headers": {
+            "Content-Type": "application/xml"
+        },
+        "body": "<?xml version=\"1.0\"?><d:propertyupdate xmlns:d=\"DAV:\"><d:set><d:prop><d:displayname>renamed</d:displayname></d:prop></d:set></d:propertyupdate>"
+    },
+    "expected": {
+        "status": 207,
+        "headers": {
+            "content-type": [
+                "application/xml; charset=utf-8"
+            ],
+            "vary": [
+                "Brief,Prefer"
+            ]
+        },
+        "body": "<?xml version=\"1.0\"?>\n<d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\"><d:response><d:href>/dav/hello.txt</d:href><d:propstat><d:prop><d:displayname/></d:prop><d:status>HTTP/1.1 403 Forbidden</d:status></d:propstat></d:response></d:multistatus>"
+    },
+    "deviation": null
+}

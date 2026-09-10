@@ -1,0 +1,23 @@
+{
+    "name": "head-file",
+    "scenario": {
+        "fixture": "files",
+        "method": "HEAD",
+        "uri": "/dav/hello.txt",
+        "headers": [],
+        "body": ""
+    },
+    "expected": {
+        "status": 200,
+        "headers": {
+            "content-length": [
+                "13"
+            ],
+            "content-type": [
+                "application/octet-stream"
+            ]
+        },
+        "body": ""
+    },
+    "deviation": null
+}

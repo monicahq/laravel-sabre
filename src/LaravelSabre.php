@@ -3,167 +3,89 @@
 namespace LaravelSabre;
 
 use Closure;
-use LaravelSabre\Exception\InvalidStateException;
+use Illuminate\Container\Container;
+use Illuminate\Http\Request;
+use Sabre\DAV\INode;
+use Sabre\DAV\ServerPlugin;
+use Sabre\DAV\Tree;
 
+/**
+ * The entry point an application uses to register its DAV resource tree, plugins, access rule and
+ * principal mapping.
+ *
+ * Every call is delegated to the registry bound in the application container, so no registration
+ * state lives in this class and two applications in one process never share it.
+ *
+ * @api
+ */
 final class LaravelSabre
 {
     /**
-     * The collection of node to use with the sabre server.
+     * Register the resource tree: an array of nodes, one node, a prebuilt tree, or a provider
+     * closure returning any of those.
      *
-     * @var array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure|null
+     * @param  array<int, mixed>|Tree|INode|Closure|iterable<mixed>|null  $nodes
      */
-    private static $nodes;
-
-    /**
-     * The collection of plugins to register to the sabre server.
-     *
-     * @var array|\Closure|null
-     *
-     * @phpstan-ignore property.unusedType
-     */
-    private static $plugins = [];
-
-    /**
-     * The callback used to authenticate a request.
-     *
-     * @var null|\Closure
-     */
-    private static $auth;
-
-    /**
-     * Returns list of nodes to create the sabre collection.
-     *
-     * @return array|\Sabre\DAV\Tree|\Sabre\DAV\INode|null
-     */
-    public static function getNodes()
+    public static function nodes($nodes): Registry
     {
-        if (static::$nodes instanceof Closure) {
-            return (static::$nodes)();
-        }
-
-        return static::$nodes;
+        return self::registry()->nodes($nodes);
     }
 
     /**
-     * Sets the list of nodes used to create the sabre collection.
+     * Register plugins in bulk, directly or as a provider closure. Appends to what is registered.
      *
-     * @param  array|\Sabre\DAV\Tree|\Sabre\DAV\INode|\Closure  $nodes
-     * @return static
-     *
-     * @psalm-suppress PossiblyUnusedMethod
+     * @param  array<int, mixed>|ServerPlugin|callable|iterable<mixed>|null  $plugins
      */
-    public static function nodes($nodes)
+    public static function plugins($plugins): Registry
     {
-        if ($nodes instanceof Closure ||
-            $nodes instanceof \Sabre\DAV\Tree ||
-            $nodes instanceof \Sabre\DAV\INode) {
-            static::$nodes = $nodes;
-        } else {
-            static::$nodes = collect($nodes)->toArray();
-        }
-
-        return new static;
+        return self::registry()->plugins($plugins);
     }
 
     /**
-     * Return the list of plugins to add to the sabre server.
-     *
-     * @return array|null
-     */
-    public static function getPlugins()
-    {
-        if (static::$plugins instanceof Closure) {
-            return (static::$plugins)();
-        }
-
-        return static::$plugins;
-    }
-
-    /**
-     * Sets the list of plugins to add to the sabre server.
-     *
-     * @param  mixed  $plugins
-     * @return static
-     *
-     * @psalm-suppress PossiblyUnusedMethod
-     */
-    public static function plugins($plugins)
-    {
-        if ($plugins instanceof Closure) {
-            static::$plugins = $plugins;
-        } else {
-            static::$plugins = collect($plugins)->toArray();
-        }
-
-        return new static;
-    }
-
-    /**
-     * Add a plugin to the sabre server.
+     * Register one plugin. May be called before or after a bulk registration.
      *
      * @param  mixed  $plugin
-     * @return static
-     *
-     * @throws InvalidStateException
-     *
-     * @psalm-suppress PossiblyUnusedMethod
      */
-    public static function plugin($plugin)
+    public static function plugin($plugin): Registry
     {
-        if (! isset(static::$plugins)) {
-            static::$plugins = [];
-        }
-
-        if (is_array(static::$plugins)) {
-            static::$plugins[] = $plugin;
-        } else {
-            throw new InvalidStateException('plugins is not an array, impossible to use plugin() function.');
-        }
-
-        return new static;
+        return self::registry()->plugin($plugin);
     }
 
     /**
-     * Register the LaravelSabre authentication callback.
-     *
-     * @param  \Closure  $callback
-     * @return static
-     *
-     * @psalm-suppress PossiblyUnusedMethod
+     * Register the rule deciding whether a request may use the endpoint.
      */
-    public static function auth(Closure $callback)
+    public static function auth(Closure $callback): Registry
     {
-        static::$auth = $callback;
-
-        return new static;
+        return self::registry()->auth($callback);
     }
 
     /**
-     * Return if the given request can open this dav resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return bool
-     *
-     * @psalm-suppress PossiblyUnusedMethod
+     * Register the mapping from the signed in user to a DAV principal identifier.
      */
-    public static function check($request)
+    public static function principal(Closure $callback): Registry
     {
-        return (static::$auth ?? function (): bool {
-            return true;
-        })($request);
+        return self::registry()->principal($callback);
     }
 
     /**
-     * Clear all datas.
-     *
-     * @return void
-     *
-     * @psalm-suppress PossiblyUnusedMethod
+     * Whether the given request may use the endpoint.
      */
-    public static function clear()
+    public static function check(Request $request): bool
     {
-        static::$nodes = [];
-        static::$plugins = [];
-        static::$auth = null;
+        return self::registry()->check($request);
+    }
+
+    /**
+     * Forget every registration.
+     */
+    public static function clear(): void
+    {
+        self::registry()->clear();
+    }
+
+    private static function registry(): Registry
+    {
+        /** @var Registry */
+        return Container::getInstance()->make(Registry::class);
     }
 }

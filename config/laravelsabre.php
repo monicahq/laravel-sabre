@@ -23,7 +23,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | This is the URI path where LaravelSabre will be accessible from. Feel free
-    | to change this path to anything you like.
+    | to change this path to anything you like. The DAV href values in every
+    | response follow this setting.
     |
     */
 
@@ -34,7 +35,9 @@ return [
     | LaravelSabre Master Switch
     |--------------------------------------------------------------------------
     |
-    | This option may be used to disable LaravelSabre.
+    | This option may be used to disable LaravelSabre. Every request under the
+    | path above is then answered with 404, before any node, plugin or provider
+    | is touched.
     |
     */
 
@@ -55,5 +58,73 @@ return [
         'web',
         Authorize::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | LaravelSabre HTTP Methods
+    |--------------------------------------------------------------------------
+    |
+    | The HTTP methods the DAV endpoint accepts. Add a method here to have it
+    | routed to the DAV server; handling it is then up to the server and its
+    | plugins. Removing a method makes the endpoint answer it with 405.
+    |
+    */
+
+    'methods' => [
+        'GET',
+        'HEAD',
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+        'OPTIONS',
+        'PROPFIND',
+        'PROPPATCH',
+        'MKCOL',
+        'MKCALENDAR',
+        'COPY',
+        'MOVE',
+        'LOCK',
+        'UNLOCK',
+        'REPORT',
+        'ACL',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | LaravelSabre Authentication Guard
+    |--------------------------------------------------------------------------
+    |
+    | The guard used to resolve the currently signed in user. When this is null,
+    | the application's default guard is used.
+    |
+    */
+
+    'guard' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | LaravelSabre Authentication Realm
+    |--------------------------------------------------------------------------
+    |
+    | The realm named in the authentication challenge sent to a client that has
+    | not authenticated yet.
+    |
+    */
+
+    'realm' => 'sabre/dav',
+
+    /*
+    |--------------------------------------------------------------------------
+    | LaravelSabre Principal Attribute
+    |--------------------------------------------------------------------------
+    |
+    | The user attribute mapped into the DAV principal identifier, used when no
+    | mapping closure is registered with LaravelSabre::principal(). The
+    | resulting principal is "principals/{value of this attribute}".
+    |
+    */
+
+    'principal_attribute' => 'email',
 
 ];

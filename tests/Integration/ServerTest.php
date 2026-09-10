@@ -9,6 +9,10 @@ use Orchestra\Testbench\Http\Middleware\VerifyCsrfToken;
 use Sabre\CardDAV\Plugin as CardDAVPlugin;
 use Sabre\DAVACL\PrincipalCollection;
 
+/**
+ * The 1.x integration test, kept unchanged as upgrade evidence: the assertions an application wrote
+ * against the previous release still hold against the rebuilt package.
+ */
 class ServerTest extends FeatureTestCase
 {
     /**

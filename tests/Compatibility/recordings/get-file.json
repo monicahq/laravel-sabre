@@ -1,0 +1,23 @@
+{
+    "name": "get-file",
+    "scenario": {
+        "fixture": "files",
+        "method": "GET",
+        "uri": "/dav/hello.txt",
+        "headers": [],
+        "body": ""
+    },
+    "expected": {
+        "status": 200,
+        "headers": {
+            "content-length": [
+                "13"
+            ],
+            "content-type": [
+                "application/octet-stream"
+            ]
+        },
+        "body": "It's magical"
+    },
+    "deviation": null
+}

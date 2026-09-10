@@ -8,6 +8,8 @@ class Authenticated implements Authenticatable
 {
     public $email;
 
+    public $name;
+
     public function getAuthIdentifierName()
     {
         return 'Identifier name';

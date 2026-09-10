@@ -1,0 +1,22 @@
+{
+    "name": "unlock-unknown-token",
+    "scenario": {
+        "fixture": "locks",
+        "method": "UNLOCK",
+        "uri": "/dav/hello.txt",
+        "headers": {
+            "Lock-Token": "<opaquelocktoken:00000000-0000-0000-0000-000000000000>"
+        },
+        "body": ""
+    },
+    "expected": {
+        "status": 409,
+        "headers": {
+            "content-type": [
+                "application/xml; charset=utf-8"
+            ]
+        },
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<d:error xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\">\n  <s:sabredav-version>VERSION</s:sabredav-version>\n  <s:exception>Sabre\\DAV\\Exception\\LockTokenMatchesRequestUri</s:exception>\n  <s:message>The locktoken supplied does not match any locks on this entity</s:message>\n  <s:file>FILE</s:file>\n  <s:line>LINE</s:line>\n  <s:code>0</s:code>\n  <s:stacktrace>TRACE</s:stacktrace>\n  <d:lock-token-matches-request-uri/>\n</d:error>"
+    },
+    "deviation": null
+}

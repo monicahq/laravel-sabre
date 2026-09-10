@@ -1,0 +1,25 @@
+{
+    "name": "anonymous-request-is-challenged",
+    "scenario": {
+        "fixture": "auth-required",
+        "method": "PROPFIND",
+        "uri": "/dav/hello.txt",
+        "headers": {
+            "Depth": "0"
+        },
+        "body": ""
+    },
+    "expected": {
+        "status": 401,
+        "headers": {
+            "content-type": [
+                "application/xml; charset=utf-8"
+            ],
+            "www-authenticate": [
+                "Bearer realm=\"sabre/dav\""
+            ]
+        },
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<d:error xmlns:d=\"DAV:\" xmlns:s=\"http://sabredav.org/ns\">\n  <s:sabredav-version>VERSION</s:sabredav-version>\n  <s:exception>Sabre\\DAV\\Exception\\NotAuthenticated</s:exception>\n  <s:message>User is not authenticated</s:message>\n  <s:file>FILE</s:file>\n  <s:line>LINE</s:line>\n  <s:code>0</s:code>\n  <s:stacktrace>TRACE</s:stacktrace>\n</d:error>"
+    },
+    "deviation": null
+}
