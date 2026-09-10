@@ -7,7 +7,6 @@ use LaravelSabre\Tests\Compatibility\Support\Fixtures;
 use LaravelSabre\Tests\Compatibility\Support\Recorder;
 use LaravelSabre\Tests\Compatibility\Support\Scenarios;
 use LaravelSabre\Tests\FeatureTestCase;
-use Orchestra\Testbench\Http\Middleware\VerifyCsrfToken;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
@@ -24,7 +23,7 @@ class RecordFixturesTest extends FeatureTestCase
             $this->markTestSkipped('Set LARAVELSABRE_RECORD=1 to re-record the compatibility fixtures.');
         }
 
-        $this->withoutMiddleware([VerifyCsrfToken::class]);
+        $this->withoutCsrfProtection();
     }
 
     protected function tearDown(): void

@@ -2,6 +2,7 @@
 
 namespace LaravelSabre\Tests;
 
+use Illuminate\Support\Facades\Route;
 use LaravelSabre\LaravelSabreServiceProvider;
 use Orchestra\Testbench\TestCase;
 
@@ -69,6 +70,42 @@ class FeatureTestCase extends TestCase
 
         $this->refreshApplication();
         $this->afterRefresh();
+    }
+
+    /**
+     * Disable request-forgery protection.
+     *
+     * DAV methods are not read methods, so the framework's CSRF middleware would reject them with
+     * 419. The class implementing it was renamed twice across the supported range, and Testbench
+     * substitutes its own on top, so every name is disabled and the middleware groups are swept for
+     * a rename we do not know about yet.
+     */
+    protected function withoutCsrfProtection(): void
+    {
+        $this->withoutMiddleware($this->csrfMiddleware());
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function csrfMiddleware(): array
+    {
+        $names = [
+            'Orchestra\\Testbench\\Http\\Middleware\\VerifyCsrfToken',
+            'Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken',      // Laravel 11
+            'Illuminate\\Foundation\\Http\\Middleware\\ValidateCsrfToken',    // Laravel 12
+            'Illuminate\\Foundation\\Http\\Middleware\\PreventRequestForgery', // Laravel 13
+        ];
+
+        foreach (Route::getMiddlewareGroups() as $group) {
+            foreach ($group as $middleware) {
+                if (is_string($middleware) && preg_match('/(CsrfToken|RequestForgery)$/', $middleware) === 1) {
+                    $names[] = $middleware;
+                }
+            }
+        }
+
+        return array_values(array_unique($names));
     }
 
     /**

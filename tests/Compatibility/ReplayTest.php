@@ -6,7 +6,6 @@ use LaravelSabre\LaravelSabre;
 use LaravelSabre\Tests\Compatibility\Support\Fixtures;
 use LaravelSabre\Tests\Compatibility\Support\Recorder;
 use LaravelSabre\Tests\FeatureTestCase;
-use Orchestra\Testbench\Http\Middleware\VerifyCsrfToken;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
@@ -22,11 +21,7 @@ class ReplayTest extends FeatureTestCase
     {
         parent::setUp();
 
-        $this->withoutMiddleware([
-            VerifyCsrfToken::class,
-            'Illuminate\Foundation\Http\Middleware\PreventRequestForgery',
-            'Illuminate\Foundation\Http\Middleware\VerifyCsrfToken',
-        ]);
+        $this->withoutCsrfProtection();
     }
 
     protected function tearDown(): void

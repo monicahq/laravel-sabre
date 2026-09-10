@@ -5,7 +5,6 @@ namespace LaravelSabre\Tests\Integration;
 use LaravelSabre\LaravelSabre;
 use LaravelSabre\Tests\Compatibility\Support\Fixtures;
 use LaravelSabre\Tests\FeatureTestCase;
-use Orchestra\Testbench\Http\Middleware\VerifyCsrfToken;
 
 /**
  * Shared setup for tests that drive the real HTTP route.
@@ -17,23 +16,6 @@ abstract class IntegrationTestCase extends FeatureTestCase
         parent::setUp();
 
         $this->withoutCsrfProtection();
-    }
-
-    /**
-     * Disable request-forgery protection for DAV methods, which are not read methods and would
-     * otherwise be rejected with 419.
-     *
-     * The class doing this differs across the supported framework versions, and the substitution
-     * Testbench applies to its own class is not reapplied when the application is rebuilt, so every
-     * name is disabled explicitly.
-     */
-    protected function withoutCsrfProtection(): void
-    {
-        $this->withoutMiddleware([
-            VerifyCsrfToken::class,
-            'Illuminate\\Foundation\\Http\\Middleware\\PreventRequestForgery',
-            'Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken',
-        ]);
     }
 
     protected function afterRefresh(): void
