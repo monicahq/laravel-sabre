@@ -9,7 +9,7 @@ and `tasks.md` for the work items.
 
 ## Prerequisites
 
-- PHP 8.2, 8.3 or 8.4 with a Laravel 11, 12 or 13 application
+- PHP 8.2, 8.3 or 8.4 with a Laravel 12 or 13 application (Laravel 13 needs PHP 8.3 or newer)
 - Composer
 - A DAV client for the end-to-end check, for example `curl`, or a contacts or calendar client for SC-007
 

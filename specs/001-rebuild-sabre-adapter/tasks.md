@@ -347,6 +347,16 @@ One task cannot be finished in this environment, and it is not blocked by the co
   clients rely on is covered by the integration and compatibility suites, but the criterion itself
   stays open until someone runs it.
 
+Scope change made during implementation, at the maintainer's request:
+
+- **Laravel 11 was dropped from the supported matrix.** Every Laravel 11 release is covered by a
+  `roave/security-advisories` conflict on `illuminate/mail >=9,<12.60`, so Composer cannot resolve a
+  Laravel 11 install and the package cannot prove it works there. Verified against `main`'s own
+  `composer.json`, and `main`'s run of 2026-09-09 already failed the same three cells. The matrix is
+  now PHP 8.2 to 8.4 with Laravel 12 and 13, five cells instead of eight. Recorded in the spec's
+  Clarifications, in FR-026, in `MIGRATION.md`, in the README requirements table and in the pull
+  request description, as constitution principle II requires for a removed version.
+
 Deviations from the task list as written, all deliberate:
 
 - **T066** was implemented as `tests/Integration/LegacyConfigTest.php` plus

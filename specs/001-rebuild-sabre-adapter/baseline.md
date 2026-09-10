@@ -53,6 +53,19 @@ Measured with a 100 MB body, PHP 8.4.25:
 | 415 | report-expand-property, report-unsupported |
 | 501 | get-root-nothing-registered |
 
+## Supported matrix change
+
+Laravel 11 was dropped during implementation. Every Laravel 11 release is covered by a
+`roave/security-advisories` conflict on `illuminate/mail >=9,<12.60`, so Composer cannot resolve a
+Laravel 11 install at all. Verified against `main`'s own `composer.json` before this branch existed,
+and `main`'s run of 2026-09-09 already failed the same three cells.
+
+| Matrix | 1.x | Rebuilt |
+|---|---|---|
+| PHP | 8.2, 8.3, 8.4 | unchanged |
+| Laravel | 11, 12, 13 | 12, 13 |
+| Cells | 8 | 5 |
+
 ## Authorised deviations
 
 The five defect fixes the spec authorises. Each is asserted by a regression test and listed in

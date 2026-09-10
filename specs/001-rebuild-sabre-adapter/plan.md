@@ -23,11 +23,11 @@ call sites stay identical.
 
 ## Technical Context
 
-**Language/Version**: PHP 8.2, 8.3 and 8.4 (matrix unchanged; local verification ran on 8.4.25)
+**Language/Version**: PHP 8.2, 8.3 and 8.4 (local verification ran on 8.4.25)
 
-**Primary Dependencies**: `illuminate/support` ^11 || ^12 || ^13, `sabre/dav` ^4.0 (resolves 4.7.1,
+**Primary Dependencies**: `illuminate/support` ^12 || ^13, `sabre/dav` ^4.0 (resolves 4.7.1,
 pulling `sabre/http` 5.1.13), `thecodingmachine/safe` ^3.0. Development only:
-`orchestra/testbench` ^9 || ^10 || ^11, `phpunit/phpunit` ^11 || ^12, `larastan/larastan`,
+`orchestra/testbench` ^10 || ^11, `phpunit/phpunit` ^11 || ^12, `larastan/larastan`,
 `vimeo/psalm`, `mockery/mockery`, `roave/security-advisories`. No new runtime dependency is proposed.
 
 **Storage**: N/A. The package ships no storage backend; the host application supplies the resource
@@ -37,7 +37,7 @@ tree, and the only persistence the package touches is the host's authentication 
 identity and translation units; integration tests under `tests/Integration/` driving the real route
 with real DAV methods, parameterised over the testing, local and production environments.
 
-**Target Platform**: Any Laravel 11 to 13 application on a supported PHP version, served by PHP-FPM,
+**Target Platform**: Any Laravel 12 or 13 application on a supported PHP version, served by PHP-FPM,
 the CLI server, or a long-lived worker such as Octane. No reliance on superglobals or process-global
 mutable state is permitted, which is what makes the worker case correct.
 
@@ -57,7 +57,7 @@ constitution IV). Line coverage at least 90% (SC-008).
 
 **Scale/Scope**: 34 functional requirements, 11 success criteria, 5 prioritised user stories.
 Estimated 14 to 16 source files, roughly 1,200 lines of source, replacing 10 files and about 1,000
-lines today. The supported matrix is 8 cells and every cell must pass (constitution II).
+lines today. The supported matrix is 5 cells and every cell must pass (constitution II).
 
 ## Constitution Check
 
@@ -66,7 +66,7 @@ lines today. The supported matrix is 8 cells and every cell must pass (constitut
 | Principle | Gate | Verdict | Basis |
 |---|---|---|---|
 | I. Adapter Fidelity | No protocol reimplementation; subclassing only to bridge framework concerns; every upstream workaround carries a comment naming its reason | PASS | Protocol handling stays in sabre/dav. The package's engine subclass, SAPI, request factory and response factory exist only to translate framework request, response, configuration and environment. R8 keeps the no-op response sender with its upstream reason. FR-023 forbids shipping domain nodes or storage. |
-| II. Supported Version Matrix | `composer.json` and `tests.yml` agree; every cell green; drops are MAJOR | PASS | The matrix is unchanged and out of scope (spec Assumptions). No version guard is needed for the chosen mechanisms: the engine constructor's SAPI argument, `Route::match()` and `stream_copy_to_stream` are stable across Laravel 11 to 13 and sabre/dav 4.x. |
+| II. Supported Version Matrix | `composer.json` and `tests.yml` agree; every cell green; drops are MAJOR | PASS | Laravel 11 is dropped, which is why this release is MAJOR and why the drop is stated in the pull request and in `MIGRATION.md`; the reason is recorded in the spec's Clarifications. Both declarations name PHP 8.2 to 8.4 with Laravel 12 and 13, and `tests/Unit/SupportedMatrixTest.php` fails if they diverge. No version guard is needed for the chosen mechanisms: the engine constructor's SAPI argument, `Route::match()` and `stream_copy_to_stream` are stable across Laravel 12 and 13 and sabre/dav 4.x. |
 | III. Test-First, Both Layers | Regression test per fix; unit tests for public API; HTTP behaviour through Testbench and real verbs; no cross-test global state; SonarCloud gate | PASS | FR-027 requires a test per acceptance scenario, HTTP ones through the real route. Each of the five defect fixes gets a regression test that fails against 1.x behaviour. R9 replaces the pinned testing environment with a parameterised one. R4 removes the need for teardown resets while `LaravelSabre::clear()` stays available for consumer suites. |
 | IV. Static Analysis And Style Are Gates | PHPStan level 5 and Psalm clean; safe wrappers; narrow suppressions; StyleCI laravel preset | PASS | Explicit request construction and typed factories remove the mixed-type properties behind most of the 22 current suppressions. SC-009 caps the result at 11, each scoped to one symbol. Streaming uses `Safe\stream_copy_to_stream`. |
 | V. Stable, Documented Public Surface | Named surface stable or MAJOR with migration instructions; new methods and keys documented in the same change; keys work when absent | PASS with obligation | The named deployment surface is frozen by FR-030. The redesign touches the code-facing part of `LaravelSabre` and makes the engine subclass internal, which the clarified spec allows and the constitution permits only as a MAJOR release with migration instructions, so the release must be MAJOR and ship the migration guide required by FR-029. New keys `methods`, `guard`, `realm` and `principal_attribute` are additive, default to 1.x behaviour, and are documented in README in the same change (FR-028). |
@@ -166,7 +166,7 @@ delivered code rather than a design.
 | Principle | Evidence |
 |---|---|
 | I. Adapter Fidelity | `src/` holds 15 files and no protocol logic; the engine subclass only sets the base URI, injects the SAPI and translates request and response. `tests/Unit/WorkaroundCommentTest.php` enforces that every workaround names its upstream reason. |
-| II. Supported Version Matrix | Unchanged, and now enforced by `tests/Unit/SupportedMatrixTest.php`, which fails if `composer.json` and `.github/workflows/tests.yml` disagree or if a runtime dependency is added. |
+| II. Supported Version Matrix | Narrowed to Laravel 12 and 13, stated in the pull request and in `MIGRATION.md` as a breaking change, and enforced by `tests/Unit/SupportedMatrixTest.php`, which fails if `composer.json` and `.github/workflows/tests.yml` disagree or if a runtime dependency is added. |
 | III. Test-First, Both Layers | 236 tests. `tests/Unit/SpecCoverageTest.php` maps all 30 acceptance scenarios to a named test and fails if one is unmapped; it also asserts that scenarios reaching HTTP are driven through the real route. |
 | IV. Static Analysis And Style Are Gates | PHPStan level 5 and Psalm both report zero findings with zero suppressions, down from 22 inline plus 2 config-level. `tests/Unit/SuppressionBudgetTest.php` keeps it that way. |
 | V. Stable, Documented Public Surface | `tests/Integration/FrozenSurfaceTest.php` asserts the frozen elements; `tests/Unit/RemovedSurfaceTest.php` asserts removed elements fail visibly and appear in `MIGRATION.md`; `tests/Unit/DocumentationTest.php` asserts the README documents every config key and public call. |

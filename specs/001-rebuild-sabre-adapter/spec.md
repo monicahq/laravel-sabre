@@ -39,6 +39,14 @@ domain of this package, not implementation choices.
   scoped to the application rather than process-global state. Well-known service-discovery redirects
   and multiple independently configured endpoints are out of scope.
 
+### Session 2026-09-10
+
+- Q: Laravel 11 cannot be installed or tested any more, because `roave/security-advisories` now
+  conflicts with `illuminate/mail >=9,<12.60` and every Laravel 11 release falls in that range. Wait
+  for the advisory to be narrowed, or drop Laravel 11? → A: Drop Laravel 11. The supported matrix
+  becomes PHP 8.2, 8.3 and 8.4 with Laravel 12 or 13, excluding Laravel 13 on PHP 8.2. The drop is
+  stated in the release, as the constitution requires for a removed version.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Serve DAV clients from a Laravel application (Priority: P1)
@@ -321,8 +329,9 @@ route. Give the README to a developer unfamiliar with the package and time their
   and correctness does not depend on an explicit reset between them.
 - **FR-025**: Every workaround for engine or framework behaviour MUST carry a comment naming the
   upstream reason.
-- **FR-026**: The rebuilt package MUST support the same version matrix as 1.x at the time of
-  release (see Assumptions).
+- **FR-026**: The rebuilt package MUST support PHP 8.2, 8.3 and 8.4 with Laravel 12 and 13,
+  excluding Laravel 13 on PHP 8.2, and `composer.json` and the tests workflow MUST agree on that set.
+  Laravel 11 is dropped for the reason recorded in Clarifications.
 - **FR-027**: Every acceptance scenario in this specification MUST be covered by an automated test,
   and every scenario that reaches HTTP MUST be driven through the application's real route.
 - **FR-028**: The README MUST document installation, every configuration setting, tree and plugin
@@ -348,7 +357,7 @@ registration state); the requirements above.
 
 **Out of scope**: shipping CardDAV, CalDAV or principal storage; any user interface; supporting DAV
 engines other than Sabre or frameworks other than Laravel; changing the shared CI workflows, the
-release tooling or the repository governance; narrowing or widening the supported version matrix;
+release tooling or the repository governance; widening the supported version matrix;
 well-known service-discovery redirects for CalDAV and CardDAV clients; serving several independently
 configured DAV endpoints from one application. The last two are deferred to their own
 specifications, not rejected.
@@ -404,8 +413,10 @@ specifications, not rejected.
 
 - The rebuild ships under the same package name and distribution channel as the next major release
   of the package; it is not a new package.
-- The supported version matrix stays exactly as today: PHP 8.2, 8.3 and 8.4 with Laravel 11, 12 and
-  13 (excluding Laravel 13 on PHP 8.2). Changing the matrix is a separate decision.
+- The supported version matrix is PHP 8.2, 8.3 and 8.4 with Laravel 12 and 13, excluding Laravel 13
+  on PHP 8.2. This narrows the 1.x matrix by one framework version: Laravel 11 was dropped during
+  implementation because a security advisory made it impossible to install or test, as recorded in
+  Clarifications. Widening the matrix remains a separate decision.
 - The DAV engine remains the Sabre DAV 4.x line; the package does not reimplement protocol behaviour.
 - The rebuild covers source, tests, configuration and README. The shared CI workflows, release
   automation and governance documents are reused unchanged.

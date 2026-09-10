@@ -12,6 +12,18 @@ bridge from your application's authentication to DAV principals.
 [![Coverage Status](https://img.shields.io/sonar/coverage/monicahq_laravel-sabre?server=https%3A%2F%2Fsonarcloud.io&style=flat-square&label=Coverage%20Status)](https://sonarcloud.io/dashboard?id=monicahq_laravel-sabre)
 
 
+# Requirements
+
+| Requirement | Supported |
+|---|---|
+| PHP | 8.2, 8.3, 8.4 |
+| Laravel | 12, 13 (Laravel 13 requires PHP 8.3 or newer) |
+| sabre/dav | 4.x |
+
+Laravel 11 is not supported. See [MIGRATION.md](MIGRATION.md) for why and for what to do if you are
+still on it.
+
+
 # Installation
 
 Install with Composer:

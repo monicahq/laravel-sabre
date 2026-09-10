@@ -1,5 +1,19 @@
 # Upgrading from 1.x
 
+## Laravel 11 is no longer supported
+
+This release supports **PHP 8.2, 8.3 and 8.4 with Laravel 12 or 13**. Laravel 11 is dropped.
+
+The reason is a security advisory: `roave/security-advisories` now conflicts with
+`illuminate/mail >=9,<12.60`, and `laravel/framework` replaces `illuminate/mail`, so every Laravel 11
+release is covered by it. A Laravel 11 application therefore cannot be installed or tested alongside
+the advisory database, which means the package can no longer prove it works there.
+
+If you are on Laravel 11, upgrade the framework first, then this package. Version 1.x continues to
+work on Laravel 11, but it is affected by the same advisory.
+
+## Everything else
+
 The deployment-facing surface is unchanged. **No change to your configuration files, environment
 variables or client-facing URLs is required.** Contacts and calendar clients keep syncing against the
 same URLs, with the same principals and the same authentication behaviour.
