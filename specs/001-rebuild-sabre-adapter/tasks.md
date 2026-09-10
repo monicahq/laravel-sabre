@@ -219,7 +219,7 @@ unfamiliar with the package and time their first successful `PROPFIND`.
 - [X] T074 [US5] Raise line coverage to at least 90% by filling the gaps the coverage run reports, adding tests under tests/Unit/ or tests/Integration/ as appropriate
 - [X] T075 [US5] Rewrite the README.md usage sections so a developer can reach a first successful `PROPFIND` without reading the package source, matching quickstart.md
 - [X] T076 [US5] Confirm composer.json and .github/workflows/tests.yml still declare the same matrix and that no version guard was introduced, per constitution principle II
-- [ ] T077 [US5] Run `vendor/bin/phpunit`, `vendor/bin/phpstan analyse` and `vendor/bin/psalm` locally, then open the pull request so the workflow in .github/workflows/tests.yml runs all eight matrix cells and the quality gate
+- [X] T077 [US5] Run `vendor/bin/phpunit`, `vendor/bin/phpstan analyse` and `vendor/bin/psalm` locally, then open the pull request so the workflow in .github/workflows/tests.yml runs all eight matrix cells and the quality gate
 
 **Checkpoint**: every acceptance scenario is tested, the quality budget is met and the matrix is green.
 
@@ -335,13 +335,13 @@ T056 or pair on them. US4 and US5 then run as a joint hardening pass.
 
 ## Execution Notes (2026-09-10)
 
-82 of 84 tasks are complete. Two could not be finished in this environment, and neither is blocked by
-the code:
+83 of 84 tasks are complete. Pull request
+[#164](https://github.com/monicahq/laravel-sabre/pull/164) was opened from branch
+`001-rebuild-sabre-adapter` at the maintainer's request, which is what runs the eight matrix cells,
+both analysers, the PR title lint and the SonarCloud gate.
 
-- **T077**, the part that opens the pull request. The suite, both analysers and coverage all run clean
-  locally, which is the part that belongs to this change. Opening the pull request is what triggers the
-  eight matrix cells and the SonarCloud gate, and it is the maintainer's call; the title and
-  description are prepared in `pull-request.md`.
+One task cannot be finished in this environment, and it is not blocked by the code:
+
 - **T080**, syncing a real contacts client and a real calendar client for SC-007. This needs client
   software and a reachable deployment, neither of which exists here. The protocol behaviour those
   clients rely on is covered by the integration and compatibility suites, but the criterion itself

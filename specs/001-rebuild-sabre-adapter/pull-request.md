@@ -1,7 +1,7 @@
-# Prepared pull request text
+# Pull request
 
-Not opened. Opening the pull request is the maintainer's call; the shared workflow runs the eight
-matrix cells and the SonarCloud gate from there.
+Opened as [#164](https://github.com/monicahq/laravel-sabre/pull/164) from branch
+`001-rebuild-sabre-adapter` into `main`, carrying 109 changed files. The text below is what was used.
 
 ## Title
 
